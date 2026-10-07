@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# =============================================================
+#  NEPA Engineering — one-command deploy to cPanel hosting
+# =============================================================
+#  Pushes the website (everything except /deploy and dotfiles
+#  you exclude) to your cPanel account over FTPS using lftp.
+#
+#  USAGE
+#    1. Copy deploy.env.example -> deploy.env and fill in your
+#       cPanel FTP details (never commit deploy.env).
+#    2. Run:   ./deploy/deploy.sh
+#
+#  REQUIREMENTS: lftp  (sudo apt install lftp  /  brew install lftp)
+# =============================================================
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+ENV_FILE="$SCRIPT_DIR/deploy.env"
+
+if [[ ! -f "$ENV_FILE" ]]; then
+  echo "✗ Missing $ENV_FILE"
+  echo "  Copy deploy/deploy.env.example to deploy/deploy.env and fill it in."
+  exit 1
+fi
+
+# shellcheck disable=SC1090
+source "$ENV_FILE"
+
+: "${FTP_HOST:?Set FTP_HOST in deploy.env}"
+: "${FTP_USER:?Set FTP_USER in deploy.env}"
+: "${FTP_PASS:?Set FTP_PASS in deploy.env}"
+REMOTE_DIR="${REMOTE_DIR:-/public_html}"
+FTP_PORT="${FTP_PORT:-21}"
+
+command -v lftp >/dev/null 2>&1 || { echo "✗ lftp is not installed. Install it and retry."; exit 1; }
+
+echo "➜ Deploying NEPA Engineering"
+echo "  Local : $ROOT_DIR"
+echo "  Remote: $FTP_USER@$FTP_HOST:$FTP_PORT $REMOTE_DIR"
+echo ""
+
+lftp -u "$FTP_USER","$FTP_PASS" -p "$FTP_PORT" "ftp://$FTP_HOST" <<EOF
+set ftp:ssl-allow true
+set ftp:ssl-force true
+set ftp:ssl-protect-data true
+set ssl:verify-certificate no
+set net:timeout 15
+set net:max-retries 2
+mirror --reverse --delete --verbose \
+  --exclude-glob deploy/ \
+  --exclude-glob deploy \
+  --exclude-glob .git/ \
+  --exclude-glob .DS_Store \
+  --exclude-glob README.md \
+  "$ROOT_DIR" "$REMOTE_DIR"
+bye
+EOF
+
+echo ""
+echo "✓ Deploy complete — visit https://www.nepaeng.com/"
