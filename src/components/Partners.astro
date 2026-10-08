@@ -1,0 +1,43 @@
+---
+import { partners } from "../data/site";
+
+interface Props {
+  heading?: string;
+}
+const { heading = "Trusted by builders, developers & architects across NSW" } = Astro.props;
+
+// Duplicate the list so the marquee can loop seamlessly (translateX -50%).
+const loop = [...partners, ...partners];
+---
+
+{partners.length > 0 && (
+  <section class="section--tight wrap partners" aria-label="Trusted partners">
+    <p class="eyebrow" data-reveal>{heading}</p>
+
+    <div class="logo-slider" data-reveal>
+      <div class="logo-slider__track" style={`--count:${partners.length}`}>
+        {loop.map((p, i) => {
+          const img = (
+            <img
+              src={p.logo}
+              alt={`${p.name} logo`}
+              width="220"
+              height="80"
+              loading="lazy"
+              decoding="async"
+            />
+          );
+          return (
+            <div class="logo-slider__item" aria-hidden={i >= partners.length ? "true" : undefined}>
+              {p.url ? (
+                <a href={p.url} target="_blank" rel="noopener" aria-label={p.name}>{img}</a>
+              ) : (
+                img
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+)}

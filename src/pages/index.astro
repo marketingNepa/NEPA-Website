@@ -1,0 +1,204 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactSection from "../components/ContactSection.astro";
+import Partners from "../components/Partners.astro";
+import { services, company } from "../data/site";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const title = "NEPA Engineering | Building Services, Sydney NSW";
+const description =
+  "Sydney building-services consultancy delivering fire, hydraulic, mechanical and electrical engineering design. Multi-disciplinary expertise since 2018.";
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
+
+// Rotating hero headline phrases. The fixed lead-in is "Engineering the systems"
+// and these complete the sentence, cycling one at a time.
+const heroSlogans = [
+  "behind great buildings",
+  "that keep buildings running",
+  "that make buildings safer",
+  "that bring buildings to life",
+  "behind smarter developments",
+];
+
+// Rotating secondary slogans (the line beneath the headline).
+const heroSubSlogans = [
+  "Fire, hydraulic, mechanical and electrical — engineered by one coordinated team.",
+  "Multi-disciplinary building services, from first concept to final commissioning.",
+  "Smarter engineering that saves cost, space and time on site.",
+  "Buildable, compliant design across every building service — under one roof.",
+  "One accountable team for every service your building depends on.",
+];
+---
+
+<BaseLayout title={title} description={description} path="/" overlayHeader>
+  <!-- HERO (full-bleed photo background — Circular Quay promenade & Sydney CBD) -->
+  <section class="hero hero--dark hero--bright">
+    <div class="hero__media">
+      <img src="/assets/img/hero-harbour.jpg" alt="Sydney Circular Quay promenade with the CBD skyline and a cruise ship on the harbour" fetchpriority="high" width="1479" height="1063" />
+    </div>
+    <div class="hero__inner">
+      <p class="overline" data-reveal>{company.tagline}</p>
+      <h1 data-reveal data-delay="1">Engineering the systems <span class="em" id="heroSlogan" data-rotator={JSON.stringify(heroSlogans)}>{heroSlogans[0]}</span></h1>
+      <div class="hero__row" style="display:flex;flex-wrap:wrap;gap:var(--space-m);align-items:flex-end;justify-content:space-between">
+        <p class="lead" data-reveal data-delay="2"><span id="heroSub" data-rotator={JSON.stringify(heroSubSlogans)}>{heroSubSlogans[0]}</span></p>
+        <div class="hero__cta" data-reveal data-delay="3">
+          <a class="btn accent" href="/contact"><span>Start a project</span><span class="arrow">↗</span></a>
+          <a class="btn ghost light" href="/services"><span>Our services</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- marquee signature -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Fire Protection</span><span>Hydraulics</span><span>Mechanical</span><span>Electrical</span><span>CDC</span><span>BIM Coordination</span>
+      <span>Fire Protection</span><span>Hydraulics</span><span>Mechanical</span><span>Electrical</span><span>CDC</span><span>BIM Coordination</span>
+    </div>
+  </div>
+
+  <!-- TRUSTED PARTNERS / CLIENT LOGOS -->
+  <Partners />
+
+  <!-- DISCIPLINES -> link to real service pages -->
+  <section class="section wrap" id="disciplines">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>What we do</p>
+        <h2 data-reveal data-delay="1">Various disciplines.<br>One accountable team.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">We combine technical depth across every building service, so coordination issues are solved on the drawing board — not on site.</p>
+    </div>
+
+    <div class="svc-cards svc-cards--3">
+      {services.map((s) => (
+        <a class="svc-card" href={`/services/${s.slug}`} data-reveal>
+          <div class="svc-card__media"><img src={s.image} alt={s.imageAlt} width="800" height="450" loading="lazy" /></div>
+          <div class="svc-card__body">
+            <h3>{s.shortName}</h3>
+            <p>{s.excerpt}</p>
+            <span class="read">Explore {s.shortName} →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    <p style="margin-top:var(--space-l)" data-reveal>
+      <a class="btn ghost" href="/services"><span>View all services</span><span class="arrow">↗</span></a>
+    </p>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about bg-white" id="about">
+    <div class="wrap about__grid">
+      <div class="about__media" data-reveal>
+        <img src="/assets/img/about.jpg" alt="NEPA engineer reviewing building services documentation" width="800" height="1000" />
+        <div class="badge"><b>2018</b><span>Delivering since</span></div>
+      </div>
+      <div class="about__body">
+        <p class="overline" data-reveal>About NEPA</p>
+        <h2 data-reveal data-delay="1">Innovative engineering, grounded in sustainability</h2>
+        <p class="lead" data-reveal data-delay="2">NEPA Engineering is a professional building-services consultancy. We combine technical depth with a genuine understanding of our clients' goals to deliver buildable, efficient outcomes — the kind of thinking that once saved a client two tanks and pumps on a fire-hydrant system through a single smarter idea.</p>
+        <ul class="values" role="list">
+          <li class="value" data-reveal>
+            <h3>Teamwork</h3>
+            <p>Collaboration across every discipline creates better outcomes for our clients.</p>
+          </li>
+          <li class="value" data-reveal data-delay="1">
+            <h3>Respect</h3>
+            <p>For our team, our partners and the environment we build in — on every project.</p>
+          </li>
+          <li class="value" data-reveal data-delay="2">
+            <h3>Integrity</h3>
+            <p>Honesty and transparency underpin every client relationship we hold.</p>
+          </li>
+        </ul>
+        <p class="about__cta" data-reveal>
+          <a class="btn ghost" href="/about"><span>More about us</span><span class="arrow">↗</span></a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPABILITIES BAND (dark punctuation) -->
+  <section class="section band" id="capabilities">
+    <div class="band__media"><img src="/assets/img/blueprint.jpg" alt="Engineering blueprint detail" width="1600" height="900" /></div>
+    <div class="wrap">
+      <p class="overline light" data-reveal>Why multi-disciplinary</p>
+      <h2 data-reveal data-delay="1" style="font-size:var(--step-4);max-width:18ch">Continuity from first sketch to final commissioning.</h2>
+      <div class="grid">
+        <div class="cap" data-reveal><span class="k" aria-hidden="true"></span><h4>Coordinated by design</h4><p>One team across all services removes the clash risk of separate consultants.</p></div>
+        <div class="cap" data-reveal data-delay="1"><span class="k" aria-hidden="true"></span><h4>Buildable solutions</h4><p>Design decisions tested against real construction and cost from day one.</p></div>
+        <div class="cap" data-reveal data-delay="2"><span class="k" aria-hidden="true"></span><h4>Smoother commissioning</h4><p>Fewer surprises on site means faster, cleaner project handover.</p></div>
+        <div class="cap" data-reveal data-delay="3"><span class="k" aria-hidden="true"></span><h4>Better outcomes</h4><p>Efficiency and effectiveness maximised across the whole project.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section--tight wrap bg-white" id="testimonials">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>Client voices</p>
+        <h2 data-reveal data-delay="1">Trusted on the projects that matter.</h2>
+      </div>
+      {company.googleReviewsUrl && (
+        <p data-reveal data-delay="2">
+          <a class="btn ghost" href={company.googleReviewsUrl} target="_blank" rel="noopener"><span>Read our Google reviews</span><span class="arrow">↗</span></a>
+        </p>
+      )}
+    </div>
+    <div class="quotes">
+      <figure class="quote" data-reveal>
+        <div class="mark">“</div>
+        <blockquote><p>The professionals at NEPA are dedicated and reliable. Their commitment to our project and understanding of sustainable development was invaluable.</p></blockquote>
+        <figcaption class="who"><span class="stars">★★★★★</span>Commercial Developer<span>Sydney, NSW</span></figcaption>
+      </figure>
+      <figure class="quote" data-reveal data-delay="1">
+        <div class="mark">“</div>
+        <blockquote><p>Their innovative approach saved us installing two tanks and pumps for the fire-hydrant system. We couldn't have done it without them — highly recommended!</p></blockquote>
+        <figcaption class="who"><span class="stars">★★★★★</span>Project Builder<span>Metropolitan NSW</span></figcaption>
+      </figure>
+      <figure class="quote" data-reveal data-delay="2">
+        <div class="mark">“</div>
+        <blockquote><p>Their multi-disciplinary team provided seamless coordination, making our construction phase smooth and efficient. Truly a top-notch consultancy.</p></blockquote>
+        <figcaption class="who"><span class="stars">★★★★★</span>Head Contractor<span>Southern Sydney</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- INSIGHTS (from Markdown) -->
+  <section class="section wrap" id="insights">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>Insights</p>
+        <h2 data-reveal data-delay="1">From the drawing board.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">Practical guidance on building services, compliance and design for the NSW market.</p>
+    </div>
+    <div class="posts feature">
+      {posts.map((post, i) => (
+        <a class="post" href={`/blog/${post.slug}`} data-reveal data-delay={i}>
+          <img src={post.data.image} alt={post.data.imageAlt} width="640" height="400" loading="lazy" />
+          <div class="body">
+            <span class="tag">{post.data.tag}</span>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            <span class="meta">{fmt(post.data.pubDate)}</span>
+            <span class="read">Read article →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    <p style="margin-top:var(--space-l)" data-reveal>
+      <a class="btn ghost" href="/blog"><span>All insights</span><span class="arrow">↗</span></a>
+    </p>
+  </section>
+
+  <ContactSection />
+</BaseLayout>

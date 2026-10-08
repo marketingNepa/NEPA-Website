@@ -1,0 +1,239 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactSection from "../../components/ContactSection.astro";
+
+const title = "Fire CDC NSW | Fire Safety Design for CDC | NEPA";
+const description =
+  "Fire safety design and documentation for Complying Development Certificate (CDC) projects in NSW — sprinklers, hydrants, detection and fire reports.";
+const path = "/services/cdc";
+
+const steps = [
+  { n: "01", title: "Eligibility check", body: "We review whether your project meets the development standards for a CDC under the relevant NSW planning policy before you commit to a design." },
+  { n: "02", title: "Fire safety design", body: "Sprinklers, hydrants, detection, emergency lighting and exit signage designed to the NCC and Australian Standards a certifier needs." },
+  { n: "03", title: "Documentation", body: "Fire services drawings, system layouts, fire safety schedules and fire block plans — packaged to support your CDC application." },
+  { n: "04", title: "Certifier support", body: "We liaise with your registered certifier through assessment and respond to any queries quickly to keep approval moving." },
+];
+
+// Fire safety documents commonly required for a CDC (per nepaeng.com/fire-cdc).
+const documents = [
+  "Fire sprinkler drawings & hydraulic calculations",
+  "Fire hydrant layouts & booster details",
+  "Fire alarm & detection drawings",
+  "Emergency lighting plans",
+  "Exit signage layouts",
+  "Fire block plans",
+  "Fire Safety Schedule",
+  "Fire Engineering Report (where a performance solution is used)",
+];
+
+const article = [
+  {
+    p: [
+      "Obtaining a Complying Development Certificate (CDC) is one of the fastest ways to gain building approval for eligible developments in New South Wales. Although the CDC process is quicker than a traditional Development Application (DA), buildings must still comply with the National Construction Code (NCC) and Australian fire safety standards. Fire systems — sprinklers, hydrants, smoke detectors, emergency lighting and exit signage — must be correctly designed and documented before a certifier can issue approval.",
+    ],
+  },
+  {
+    h: "Why fire safety design matters for CDC approval",
+    p: [
+      "Fire safety design protects building occupants during an emergency and demonstrates that a building complies with Australian regulations. Before a certifier issues a CDC, they must confirm that all required fire systems have been properly designed. Without correct fire documentation, projects can face delays or approval issues. CDC approvals are commonly used for boarding houses, commercial fit-outs, industrial buildings, retail spaces, apartment developments and residential additions — and every one must still meet strict fire safety requirements.",
+    ],
+  },
+  {
+    h: "Fire sprinkler systems",
+    p: [
+      "Fire sprinkler systems are commonly required in boarding houses, commercial buildings and larger residential developments. They automatically control a fire by releasing water when heat activates the sprinkler heads, and in Australia are typically designed to AS 2118. Proper design includes hydraulic calculations, pipework layouts and water-flow analysis so the system performs reliably during an emergency.",
+    ],
+  },
+  {
+    h: "Fire hydrant and detection systems",
+    p: [
+      "Fire hydrant systems give firefighters access to water during firefighting operations, and may include external boosters, internal hydrant valves and dedicated fire pumps depending on the building. Fire detection systems alert occupants when smoke or heat is detected, using smoke and heat detectors, fire indicator panels and occupant warning systems. Buildings with sleeping occupants, such as boarding houses, usually require more advanced detection for improved safety.",
+    ],
+  },
+  {
+    h: "Emergency lighting and exit signage",
+    p: [
+      "Emergency lighting and exit signage help occupants evacuate safely during a fire. Emergency lights keep evacuation paths visible during a power failure, while illuminated exit signs clearly identify escape routes. These systems are mandatory in most commercial and multi-residential developments.",
+    ],
+  },
+  {
+    h: "Avoiding common fire compliance issues",
+    p: [
+      "Although the CDC pathway is designed to speed up approvals, fire compliance issues can still cause delays. Common problems include incorrect sprinkler layouts, inadequate hydrant coverage, missing fire documentation and non-compliant exit travel distances. Addressing fire safety requirements early in the design stage — with experienced fire consultants coordinating alongside the architect and other engineers — reduces construction delays and costly changes later in the project.",
+    ],
+  },
+];
+
+const faqs = [
+  {
+    q: "What is a CDC in NSW?",
+    a: "A Complying Development Certificate (CDC) is a combined planning and construction approval used for certain developments in New South Wales. It allows construction to begin faster than the standard council approval pathway. CDC approvals are commonly used for boarding houses, commercial fit-outs, industrial buildings, retail spaces, apartment developments and residential additions. Even though the process is simplified, all projects must still meet strict fire safety requirements.",
+  },
+  {
+    q: "What fire safety documents are required for a CDC project?",
+    a: "Most CDC projects require fire safety documentation demonstrating compliance with the NCC and Australian Standards. Common documents include fire sprinkler drawings, fire hydrant layouts, fire alarm drawings, emergency lighting plans, exit signage layouts and fire block plans. Many projects also require a Fire Safety Schedule listing all essential fire safety measures, and complex developments may need a Fire Engineering Report where a performance solution is used instead of the standard Deemed-to-Satisfy provisions.",
+  },
+  {
+    q: "Does the CDC pathway lower fire safety standards?",
+    a: "No. A CDC still requires fully compliant fire safety engineering to the NCC and Australian Standards. The pathway speeds up approval for projects that already meet the standards — it does not reduce the technical requirements the design must satisfy.",
+  },
+  {
+    q: "How does NEPA help with Fire CDC projects?",
+    a: "We prepare the fire safety design and documentation a certifier needs — fire services drawings, fire block plans, fire safety schedules and compliance reviews — and coordinate with your certifier. Engaging experienced fire professionals early helps simplify approvals, reduce delays and improve compliance outcomes.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Fire safety design and documentation for Complying Development Certificates (CDC)",
+  name: "Fire CDC — Fire Safety Design for Complying Development Certificates",
+  description,
+  provider: { "@type": "ProfessionalService", name: "NEPA Engineering", url: "https://www.nepaeng.com/" },
+  areaServed: { "@type": "State", name: "New South Wales" },
+  url: `https://www.nepaeng.com${path}`,
+};
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nepaeng.com/" },
+    { "@type": "ListItem", position: 2, name: "Services", item: "https://www.nepaeng.com/services" },
+    { "@type": "ListItem", position: 3, name: "CDC", item: `https://www.nepaeng.com${path}` },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image="/assets/img/cta-building.jpg"
+  jsonLd={[serviceSchema, faqSchema, breadcrumb]}
+>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/services">Services</a><span>/</span>CDC</nav>
+      <div class="hero__grid">
+        <div>
+          <p class="overline" data-reveal>Fire safety · Fast-track approval</p>
+          <h1 data-reveal data-delay="1">Fire CDC <span class="em">in New South Wales.</span></h1>
+          <p class="lead" data-reveal data-delay="2">Fire safety design and documentation for Complying Development Certificate (CDC) projects in NSW. We design the sprinklers, hydrants, detection, emergency lighting and reports your certifier needs — so your fast-track approval stays fast.</p>
+          <div class="hero__cta" data-reveal data-delay="3">
+            <a class="btn accent" href="/contact"><span>Check your eligibility</span><span class="arrow">↗</span></a>
+            <a class="btn ghost" href="#faq"><span>CDC FAQs</span></a>
+          </div>
+        </div>
+        <aside class="spec-rail" data-reveal data-delay="2" aria-label="CDC at a glance">
+          <div class="srow"><span class="k">Pathway</span><span class="v">Fast-track</span></div>
+          <div class="srow"><span class="k">Jurisdiction</span><span class="v">NSW</span></div>
+          <div class="srow"><span class="k">Standard</span><span class="v">NCC</span></div>
+          <div class="srow"><span class="k">Output</span><span class="v">Certifiable</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is a CDC -->
+  <section class="section wrap bg-white">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>The basics</p>
+        <h2 data-reveal data-delay="1">What is complying development?</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">A combined planning and construction approval for projects that meet pre-set development standards — assessed by an accredited certifier, not a full development application.</p>
+    </div>
+    <div class="outcomes" style="grid-template-columns:repeat(3,1fr)">
+      <div class="outcome" data-reveal><h4>Faster</h4><p>One certificate replaces a separate DA and construction certificate, cutting approval time dramatically.</p></div>
+      <div class="outcome" data-reveal data-delay="1"><h4>Certain</h4><p>Clear development standards mean a more predictable outcome when your design complies.</p></div>
+      <div class="outcome" data-reveal data-delay="2"><h4>Still compliant</h4><p>A CDC is not a shortcut on quality — fire safety engineering must be fully compliant.</p></div>
+    </div>
+  </section>
+
+  <!-- In-depth article (SEO) -->
+  <section class="section wrap">
+    <div class="article">
+      <p class="overline" data-reveal>Fire safety for CDC</p>
+      <h2 data-reveal data-delay="1" style="font-size:var(--step-3)">Fire safety design and reports for CDC projects in Sydney</h2>
+      <div class="prose" data-reveal data-delay="1">
+        {article.map((block) => (
+          <>
+            {block.h && <h3>{block.h}</h3>}
+            {block.p.map((para) => <p>{para}</p>)}
+          </>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Documents required -->
+  <section class="section wrap bg-white">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>What's required</p>
+        <h2 data-reveal data-delay="1">Fire documents for a CDC.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">Most CDC projects need fire safety documentation to demonstrate compliance with the NCC and Australian Standards. We prepare the lot.</p>
+    </div>
+    <div class="scope">
+      <ul>
+        {documents.map((doc) => <li>{doc}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section wrap">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>How we work</p>
+        <h2 data-reveal data-delay="1">From eligibility<br>to certificate.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">A clear path that keeps your approval moving — with every building service coordinated by one team.</p>
+    </div>
+    <div class="steps">
+      {steps.map((s) => (
+        <div class="step" data-reveal>
+          <div class="n">{s.n}</div>
+          <h4>{s.title}</h4>
+          <p>{s.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section wrap bg-paper-2" id="faq">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>CDC questions</p>
+        <h2 data-reveal data-delay="1">Frequently asked.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">The questions clients ask most about the complying development pathway in NSW.</p>
+    </div>
+    <div class="faq" data-reveal>
+      {faqs.map((f, i) => (
+        <details open={i === 0}>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+    <p class="form-note" style="color:var(--muted);margin-top:var(--space-m)">
+      This information is general in nature. Eligibility for complying development depends on your specific project and current NSW planning policy — <a href="/contact" style="color:var(--blue)">contact us</a> for project-specific advice.
+    </p>
+  </section>
+
+  <ContactSection heading="Thinking about the<br>CDC pathway?" />
+</BaseLayout>

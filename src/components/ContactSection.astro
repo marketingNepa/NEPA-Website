@@ -1,0 +1,65 @@
+---
+import { company, services } from "../data/site";
+
+interface Props {
+  heading?: string;
+}
+const { heading = "Let's engineer<br>your next project." } = Astro.props;
+---
+
+<section class="section contact" id="contact">
+  <div class="wrap contact__grid">
+    <div>
+      <p class="overline" data-reveal>Get in touch</p>
+      <h2 data-reveal data-delay="1" set:html={heading}></h2>
+      <p class="lead" data-reveal data-delay="2">Tell us about your building and we'll come back with a clear, coordinated approach.</p>
+      <div class="info">
+        <div class="row" data-reveal>
+          <span class="ico" aria-hidden="true">◎</span>
+          <div>
+            <div class="lbl">Office</div>
+            <span>{company.address.street},<br>{company.address.locality} {company.address.region} {company.address.postcode}</span>
+          </div>
+        </div>
+        <div class="row" data-reveal data-delay="1">
+          <span class="ico" aria-hidden="true">✆</span>
+          <div>
+            <div class="lbl">Phone</div>
+            <a href={`tel:${company.phonePrimary}`}>{company.phonePrimaryDisplay}</a> &nbsp;·&nbsp;
+            <a href={`tel:${company.phoneSecondary}`}>{company.phoneSecondaryDisplay}</a>
+          </div>
+        </div>
+        <div class="row" data-reveal data-delay="2">
+          <span class="ico" aria-hidden="true">✉</span>
+          <div>
+            <div class="lbl">Email</div>
+            <a href={`mailto:${company.email}`}>{company.email}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="form" id="contactForm" action="https://formspree.io/f/your-id-here" method="POST" data-reveal data-delay="1">
+      <div class="two">
+        <div class="field"><label for="name">Name</label><input id="name" name="name" required placeholder="Your name" /></div>
+        <div class="field"><label for="company">Company</label><input id="company" name="company" placeholder="Company" /></div>
+      </div>
+      <div class="two">
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="you@email.com" /></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" placeholder="04xx xxx xxx" /></div>
+      </div>
+      <div class="field">
+        <label for="service">Service required</label>
+        <select id="service" name="service">
+          {services.map((s) => <option>{s.shortName}</option>)}
+          <option>Complying Development (CDC)</option>
+          <option>Multi-disciplinary / Not sure</option>
+        </select>
+      </div>
+      <div class="field"><label for="message">Project details</label><textarea id="message" name="message" rows="4" required placeholder="Tell us about your project…"></textarea></div>
+      <button class="btn accent" type="submit"><span>Submit inquiry</span><span class="arrow">↗</span></button>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      <p class="form-note">By submitting you agree to our privacy policy. We never share your details.</p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { company } from "../data/site";
+
+const title = "Legal Notice | NEPA Engineering";
+const description =
+  "Legal notice, website operator details, content disclaimer and intellectual-property terms for the NEPA Engineering building-services website.";
+---
+
+<BaseLayout title={title} description={description} path="/legal">
+  <section class="hero section--tight">
+    <div class="wrap hero__inner simple">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Legal</nav>
+      <p class="overline">Legal</p>
+      <h1>Legal Notice</h1>
+    </div>
+  </section>
+  <section class="section wrap simple">
+    <h3>Website operator</h3>
+    <p>This website is operated by {company.name}, {company.addressSingleLine}, Australia.</p>
+    <h3>Content</h3>
+    <p>Information on this website is provided for general information only and does not constitute engineering advice for a specific project. Formal advice is provided only under a written engagement.</p>
+    <h3>Intellectual property</h3>
+    <p>All content, branding and imagery on this website are the property of {company.name} or used under licence, and may not be reproduced without permission.</p>
+    <h3>Contact</h3>
+    <p>Email: <a href={`mailto:${company.email}`} style="color:var(--blue)">{company.email}</a> · Phone: <a href={`tel:${company.phonePrimary}`} style="color:var(--blue)">{company.phonePrimaryDisplay}</a></p>
+  </section>
+</BaseLayout>

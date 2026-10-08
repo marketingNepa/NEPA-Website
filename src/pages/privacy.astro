@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { company } from "../data/site";
+
+const title = "Privacy Policy | NEPA Engineering";
+const description =
+  "How NEPA Engineering collects, uses, stores and protects the personal information you share through our website and enquiry forms across NSW.";
+---
+
+<BaseLayout title={title} description={description} path="/privacy">
+  <section class="hero section--tight">
+    <div class="wrap hero__inner simple">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Privacy</nav>
+      <p class="overline">Legal</p>
+      <h1>Privacy Policy</h1>
+      <p class="lead">NEPA Engineering respects your privacy and is committed to protecting the personal information you share with us.</p>
+    </div>
+  </section>
+  <section class="section wrap simple">
+    <h3>Information we collect</h3>
+    <p>When you contact us through this website we may collect your name, company, email address, phone number and any project details you provide. We collect this information solely to respond to your enquiry and provide our services.</p>
+
+    <h3>How we use your information</h3>
+    <p>We use your information to respond to enquiries, prepare proposals, and deliver engineering consultancy services. We do not sell or rent your personal information to third parties.</p>
+
+    <h3>Data storage &amp; security</h3>
+    <p>We take reasonable steps to protect your information from misuse, loss and unauthorised access. Enquiry details are retained only for as long as necessary to serve your project and meet our record-keeping obligations.</p>
+
+    <h3>Your rights</h3>
+    <p>You may request access to, correction of, or deletion of the personal information we hold about you at any time by emailing <a href={`mailto:${company.email}`} style="color:var(--blue)">{company.email}</a>.</p>
+
+    <h3>Contact</h3>
+    <p>{company.name}<br>{company.addressSingleLine}<br>Email: <a href={`mailto:${company.email}`} style="color:var(--blue)">{company.email}</a> · Phone: <a href={`tel:${company.phonePrimary}`} style="color:var(--blue)">{company.phonePrimaryDisplay}</a></p>
+    <p style="color:var(--muted);font-size:var(--step--1)">This policy may be updated from time to time. Last updated: October 2026.</p>
+  </section>
+</BaseLayout>

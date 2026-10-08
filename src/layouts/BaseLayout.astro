@@ -1,0 +1,183 @@
+---
+import "../styles/global.css";
+import SeoHead from "../components/SeoHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  image?: string;
+  type?: "website" | "article";
+  jsonLd?: Record<string, any>[];
+  noindex?: boolean;
+  /** Dark hero overlay header mode. */
+  overlayHeader?: boolean;
+}
+
+const {
+  title,
+  description,
+  path = Astro.url.pathname,
+  image,
+  type,
+  jsonLd,
+  noindex,
+  overlayHeader = false,
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en-AU">
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      path={path}
+      image={image}
+      type={type}
+      jsonLd={jsonLd}
+      noindex={noindex}
+    />
+  </head>
+  <body>
+    <Header overlay={overlayHeader} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // NEPA Engineering — interactions (bundled by Astro)
+      const header = document.getElementById("header");
+      const nav = document.getElementById("nav");
+      const toggle = document.getElementById("navToggle");
+      const bar = document.getElementById("scrollBar");
+      const isOverlay = header?.dataset.overlay === "true";
+
+      function onScroll() {
+        const y = window.scrollY || window.pageYOffset;
+        if (header) {
+          header.classList.toggle("scrolled", y > 40);
+          // overlay hero: drop the transparent overlay styling once scrolled
+          if (isOverlay) header.classList.toggle("overlay", y <= 40);
+        }
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        if (bar) bar.style.width = (h > 0 ? (y / h) * 100 : 0) + "%";
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      // Mobile nav
+      if (toggle && nav) {
+        toggle.addEventListener("click", () => {
+          const open = nav.classList.toggle("open");
+          document.body.classList.toggle("nav-open", open);
+          toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+        nav.querySelectorAll("a").forEach((a) => {
+          a.addEventListener("click", () => {
+            nav.classList.remove("open");
+            document.body.classList.remove("nav-open");
+            toggle.setAttribute("aria-expanded", "false");
+          });
+        });
+      }
+
+      // Scroll reveal
+      const reveals = document.querySelectorAll("[data-reveal]");
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("in");
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        );
+        reveals.forEach((el) => io.observe(el));
+      } else {
+        reveals.forEach((el) => el.classList.add("in"));
+      }
+
+      // Current year
+      const yr = document.getElementById("year");
+      if (yr) yr.textContent = String(new Date().getFullYear());
+
+      // Rotating slogans — any element with [data-rotator] holding a JSON array
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduceMotion) {
+        document.querySelectorAll<HTMLElement>("[data-rotator]").forEach((el) => {
+          let phrases: string[] = [];
+          try {
+            phrases = JSON.parse(el.dataset.rotator || "[]");
+          } catch {
+            phrases = [];
+          }
+          if (phrases.length < 2) return;
+          let i = 0;
+          el.classList.add("rotator");
+          setInterval(() => {
+            el.classList.add("rotator--out");
+            setTimeout(() => {
+              i = (i + 1) % phrases.length;
+              el.textContent = phrases[i];
+              el.classList.remove("rotator--out");
+            }, 420);
+          }, 6000);
+        });
+      }
+
+      // Contact form — graceful AJAX submit
+      const form = document.getElementById("contactForm") as HTMLFormElement | null;
+      const status = document.getElementById("formStatus");
+      if (form) {
+        form.addEventListener("submit", (ev) => {
+          const action = form.getAttribute("action") || "";
+          if (action.indexOf("your-id-here") !== -1) {
+            ev.preventDefault();
+            if (status) {
+              status.className = "form-status err";
+              status.textContent =
+                "Form endpoint not configured yet. Email us at info@nepaeng.com and we'll reply straight away.";
+            }
+            return;
+          }
+          ev.preventDefault();
+          if (status) {
+            status.className = "form-status";
+            status.textContent = "Sending…";
+          }
+          fetch(action, {
+            method: "POST",
+            body: new FormData(form),
+            headers: { Accept: "application/json" },
+          })
+            .then((r) => {
+              if (r.ok) {
+                form.reset();
+                if (status) {
+                  status.className = "form-status ok";
+                  status.textContent =
+                    "Thank you — your inquiry has been sent. We'll be in touch shortly.";
+                }
+              } else {
+                throw new Error("bad response");
+              }
+            })
+            .catch(() => {
+              if (status) {
+                status.className = "form-status err";
+                status.textContent =
+                  "Something went wrong. Please email info@nepaeng.com directly.";
+              }
+            });
+        });
+      }
+    </script>
+  </body>
+</html>

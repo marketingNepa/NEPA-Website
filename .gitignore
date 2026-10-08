@@ -1,8 +1,18 @@
 # Deploy secrets — never commit
 deploy/deploy.env
 
+# Build output & Astro cache
+dist/
+.astro/
+
+# Dependencies
+node_modules/
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db
 *.log
-node_modules/
+
+# Env
+.env
+.env.production

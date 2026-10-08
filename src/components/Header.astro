@@ -1,0 +1,66 @@
+---
+import { company, primaryNav } from "../data/site";
+
+interface Props {
+  /** When true the header overlays a dark hero (transparent until scrolled). */
+  overlay?: boolean;
+}
+const { overlay = false } = Astro.props;
+
+// Normalise current path for active-state matching.
+const current = Astro.url.pathname.replace(/\/+$/, "") || "/";
+function isActive(href: string): boolean {
+  const h = href.split("?")[0].replace(/\/+$/, "") || "/";
+  if (h === "/") return current === "/";
+  return current === h || current.startsWith(h + "/");
+}
+---
+
+<div class="scroll-bar" id="scrollBar"></div>
+
+<header class={`site-header${overlay ? " overlay" : ""}`} id="header" data-overlay={overlay ? "true" : "false"}>
+  <a class="brand" href="/" aria-label={`${company.name} home`}>
+    <img class="logo-light" src="/assets/img/logo-white.png" alt={company.name} width="140" height="42" />
+    <img class="logo-dark" src="/assets/img/logo.png" alt={company.name} width="140" height="42" />
+  </a>
+  <nav class="nav" id="nav" aria-label="Primary">
+    <ul class="nav__list">
+      {primaryNav.map((item) =>
+        item.children ? (
+          <li class="nav__item nav__item--has-menu">
+            <a
+              class="nav-link"
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              aria-haspopup="true"
+            >
+              {item.label}
+              <span class="nav__caret" aria-hidden="true">▾</span>
+            </a>
+            <ul class="submenu" aria-label={`${item.label} menu`}>
+              {item.children.map((child) => (
+                <li>
+                  <a href={child.href}>{child.label}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : (
+          <li class="nav__item">
+            <a
+              class="nav-link"
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        )
+      )}
+    </ul>
+    <a class="btn accent nav__cta" href="/contact"><span>Get in touch</span></a>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>

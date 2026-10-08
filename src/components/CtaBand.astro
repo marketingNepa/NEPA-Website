@@ -1,0 +1,27 @@
+---
+interface Props {
+  heading?: string;
+  text?: string;
+  buttonLabel?: string;
+  href?: string;
+}
+const {
+  heading = "Ready to engineer your next project?",
+  text = "Tell us about your building and we'll come back with a clear, coordinated approach.",
+  buttonLabel = "Start a project",
+  href = "/contact",
+} = Astro.props;
+---
+
+<section class="section--tight cta">
+  <div class="wrap">
+    <div>
+      <p class="overline" data-reveal>Get in touch</p>
+      <h2 data-reveal data-delay="1">{heading}</h2>
+      <p class="lead" style="color:var(--muted-dark)" data-reveal data-delay="2">{text}</p>
+    </div>
+    <div data-reveal data-delay="2">
+      <a class="btn accent" href={href}><span>{buttonLabel}</span><span class="arrow">↗</span></a>
+    </div>
+  </div>
+</section>

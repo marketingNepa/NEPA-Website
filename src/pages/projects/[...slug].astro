@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects", ({ data }) => !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+type Props = { project: CollectionEntry<"projects"> };
+const { project } = Astro.props;
+const { Content } = await project.render();
+const d = project.data;
+const path = `/projects/${project.slug}`;
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nepaeng.com/" },
+    { "@type": "ListItem", position: 2, name: "Projects", item: "https://www.nepaeng.com/projects" },
+    { "@type": "ListItem", position: 3, name: d.title, item: `https://www.nepaeng.com${path}` },
+  ],
+};
+
+// Keep <title> within SEO limits: only append the brand suffix when it fits.
+const suffix = " | NEPA Engineering";
+const metaTitle = d.title.length + suffix.length <= 60 ? d.title + suffix : d.title;
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={d.description}
+  path={path}
+  image={d.image}
+  jsonLd={[breadcrumb]}
+>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/projects">Projects</a><span>/</span>{d.category}</nav>
+      <div class="hero__grid">
+        <div>
+          <p class="overline" data-reveal>{d.category}</p>
+          <h1 data-reveal data-delay="1">{d.title}</h1>
+          <p class="lead" data-reveal data-delay="2">{d.description}</p>
+        </div>
+        <aside class="meta-rail proj-detail-rail" data-reveal data-delay="2" aria-label="Project details">
+          <div class="srow"><span class="k">Sector</span><span class="v">{d.category}</span></div>
+          <div class="srow"><span class="k">Location</span><span class="v">{d.location}</span></div>
+          {d.year && <div class="srow"><span class="k">Year</span><span class="v">{d.year}</span></div>}
+          {d.client && <div class="srow"><span class="k">Client</span><span class="v">{d.client}</span></div>}
+          {d.services.length > 0 && <div class="srow"><span class="k">Services</span><span class="v">{d.services.join(", ")}</span></div>}
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap bg-white proj-detail">
+    <div class="article">
+      <img class="article__hero" src={d.image} alt={d.imageAlt} width="1200" height="600" />
+      <div class="prose">
+        <Content />
+      </div>
+      {d.gallery.length > 0 && (
+        <div class="proj-gallery">
+          {d.gallery.map((g) => <img src={g.src} alt={g.alt} width="640" height="480" loading="lazy" />)}
+        </div>
+      )}
+      <p style="margin-top:var(--space-xl)">
+        <a class="btn ghost" href="/projects"><span>← All projects</span></a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand heading="Planning something similar?" buttonLabel="Get in touch" />
+</BaseLayout>
