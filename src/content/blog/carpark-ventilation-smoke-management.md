@@ -4,7 +4,7 @@ description: "Car-park ventilation balances code compliance, energy use and buil
 tag: "Mechanical"
 pubDate: 2026-07-30
 image: "/assets/img/mechanical.jpg"
-imageAlt: "HVAC mechanical ductwork in a plant room"
+imageAlt: "Mechanical plant room with HVAC ductwork and insulated pipework"
 ---
 
 Basement car-park ventilation looks simple on a drawing and is anything but. It has to do two different jobs — control everyday pollutants and manage smoke in a fire — while using as little energy and ceiling space as possible. Those goals pull in different directions, and the design is really an exercise in balancing them.

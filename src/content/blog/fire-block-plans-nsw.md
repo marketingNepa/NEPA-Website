@@ -4,7 +4,7 @@ description: "What a fire block plan must show for a commercial building in NSW,
 tag: "Fire · Compliance"
 pubDate: 2026-09-18
 image: "/assets/img/fire.jpg"
-imageAlt: "Fire sprinkler system in a commercial building"
+imageAlt: "Fire pump room with pumps and red fire-protection pipework"
 featured: true
 ---
 

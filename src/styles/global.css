@@ -281,6 +281,28 @@ img { display: block; max-width: 100%; height: auto; }
 .hero p.lead { max-width: 46ch; }
 .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: var(--space-m); }
 
+/* light hero with a bright image panel on the right (home) */
+.hero--split .hero__grid { align-items: stretch; }
+.hero__panel {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  min-height: clamp(260px, 42vh, 440px);
+  border: 1px solid var(--line);
+  box-shadow: 0 30px 60px -30px rgba(10,31,51,.35);
+}
+.hero__panel img { width: 100%; height: 100%; object-fit: cover; }
+.hero__panel::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,160,224,0) 55%, rgba(10,31,51,.28));
+}
+.hero__panel .tagchip {
+  position: absolute; left: 1rem; bottom: 1rem; z-index: 1;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(6px);
+  font-family: var(--font-display); font-weight: 600; font-size: var(--step--1);
+  color: var(--ink); padding: .5rem .9rem; border-radius: 2px;
+  border-left: 3px solid var(--accent);
+}
+@media (max-width: 900px){ .hero__panel { min-height: 240px; } }
+
 /* the "spec rail" — reads like a drawing legend */
 .spec-rail {
   border: 1px solid var(--line);

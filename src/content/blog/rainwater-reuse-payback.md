@@ -4,7 +4,7 @@ description: "Designed properly, rainwater reuse cuts both water bills and infra
 tag: "Hydraulics"
 pubDate: 2026-08-27
 image: "/assets/img/hydraulic.jpg"
-imageAlt: "Hydraulic pipework in a commercial plant room"
+imageAlt: "In-ground plumbing and drainage pipework at a construction site"
 ---
 
 Rainwater reuse is one of those systems that gets specified to tick a sustainability box, then value-engineered out when the budget tightens. That's usually because it was sized and positioned as an add-on rather than designed into the hydraulic strategy from the start.

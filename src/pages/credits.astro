@@ -1,0 +1,77 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Image Credits | NEPA Engineering";
+const description =
+  "Attribution for the photography used on the NEPA Engineering website, sourced from Wikimedia Commons under open licences.";
+
+// Photo attributions. CC BY / CC BY-SA images require credit + licence link.
+const credits = [
+  {
+    file: "Homepage hero",
+    title: "Modern high-rise office building against a bright blue sky",
+    author: "PattayaPatrol",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    source: "https://commons.wikimedia.org/wiki/File:DFC_3488_Modern_high-rise_office_building_framed_against_a_bright_blue_sky_with_scattered_clouds.jpg",
+  },
+  {
+    file: "Fire Protection",
+    title: "Fire Pump Room, Brisbane, 2021",
+    author: "Kgbo",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    source: "https://commons.wikimedia.org/wiki/File:Fire_Pump_Room,_Brisbane,_2021.jpg",
+  },
+  {
+    file: "Hydraulic Services",
+    title: "PVC drainage pipe installation at manhole (MassDOT)",
+    author: "MassDOT",
+    license: "Public domain",
+    licenseUrl: "https://commons.wikimedia.org/wiki/Help:Public_domain",
+    source: "https://commons.wikimedia.org/wiki/File:2014_07_22_Harvard_Street_Bridge_Drainage_-_PVC_Pipe_Installation_at_Manhole-1_(15034782225).jpg",
+  },
+  {
+    file: "Mechanical Services",
+    title: "Mechanical / air-ventilation plant room (Lillehammer, Norway)",
+    author: "Wolfmann",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    source: "https://commons.wikimedia.org/wiki/File:Teknisk_rom_(School_build._Lilleh._Norway_2024-09._Mechan._room_Air_ventil._Hot_water_Heat_recov._unit)_varmtvann_isolerte_r%C3%B8r_m%C3%A5lere_termometere_sirkulasjonspumpe_strupeventil_radiatorer_gulvvarme_elkabler_etc_IMG_0307.jpg",
+  },
+  {
+    file: "Electrical Services",
+    title: "Distribution board in Slovakia",
+    author: "Oto Zapletal",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    source: "https://commons.wikimedia.org/wiki/File:Distribution_board_in_Slovakia_05.jpg",
+  },
+];
+---
+
+<BaseLayout title={title} description={description} path="/credits">
+  <section class="hero section--tight">
+    <div class="wrap hero__inner simple">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Credits</nav>
+      <p class="overline">Attribution</p>
+      <h1>Image Credits</h1>
+      <p class="lead">Photography on this site is sourced from Wikimedia Commons. Images under Creative Commons licences are credited below as required.</p>
+    </div>
+  </section>
+  <section class="section wrap simple">
+    <div class="faq">
+      {credits.map((c) => (
+        <div style="border-bottom:1px solid var(--line);padding:1rem 0">
+          <h3 style="margin:0 0 .3rem;font-size:var(--step-1)">{c.file}</h3>
+          <p style="margin:0;color:var(--muted);font-size:var(--step--1)">
+            “{c.title}” by {c.author} —
+            <a href={c.licenseUrl} target="_blank" rel="noopener" style="color:var(--blue)">{c.license}</a>.
+            <a href={c.source} target="_blank" rel="noopener" style="color:var(--blue)">Source</a>
+          </p>
+        </div>
+      ))}
+    </div>
+    <p style="color:var(--muted);font-size:var(--step--1);margin-top:var(--space-m)">Company logo and NEPA project photography remain the property of NEPA Engineering.</p>
+  </section>
+</BaseLayout>

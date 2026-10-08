@@ -44,7 +44,7 @@ const breadcrumb = {
     <div class="svc-cards">
       {services.map((s) => (
         <a class="svc-card" href={`/services/${s.slug}`} data-reveal>
-          <div class="svc-card__media"><img src={s.image} alt={s.name} width="800" height="450" loading="lazy" /></div>
+          <div class="svc-card__media"><img src={s.image} alt={s.imageAlt} width="800" height="450" loading="lazy" /></div>
           <div class="svc-card__body">
             <span class="num">{s.num}</span>
             <h3>{s.shortName}</h3>
