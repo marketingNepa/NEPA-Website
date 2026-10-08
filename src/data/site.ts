@@ -29,9 +29,15 @@ export const company = {
     facebook: "https://www.facebook.com/p/Nepa-Engineering-61587420660306/",
     linkedin: "https://www.linkedin.com/company/110203113/",
   },
-  // TODO: replace with NEPA's Google Business review link to enable the
-  // "Read our Google reviews" button. Leave empty to hide the button.
-  googleReviewsUrl: "",
+  // Google Business reviews link — powers the "Read our Google reviews" button
+  // on the home page (and anywhere else company.googleReviewsUrl is used).
+  // HOW TO GET YOUR LINK (either works):
+  //   1. Google Business Profile dashboard → "Ask for reviews" → copy the short
+  //      link, which looks like  https://g.page/r/XXXXXXXXXXXX/review
+  //   2. Or search your business on Google Maps, open the listing, click
+  //      "Share", and copy the  https://maps.app.goo.gl/XXXX  link.
+  // Paste your link below (replace the placeholder). Leave as "" to hide the button.
+  googleReviewsUrl: "https://g.page/r/REPLACE_WITH_NEPA_REVIEW_ID/review",
 } as const;
 
 export type NavChild = { label: string; href: string };
@@ -188,7 +194,7 @@ export const services: Service[] = [
     name: "Hydraulic Services",
     shortName: "Hydraulic Services",
     image: "/assets/img/hydraulic.jpg",
-    imageAlt: "In-ground plumbing and drainage pipework installed at a construction site",
+    imageAlt: "In-ground trench with multiple plumbing and drainage pipes being laid on a construction site",
     excerpt:
       "Plumbing & drainage, stormwater, hot/cold water, gas and trade waste, rainwater reuse, irrigation and pump sizing.",
     summary:
@@ -605,10 +611,25 @@ export function getService(slug: string): Service | undefined {
 // ---------------------------------------------------------
 export type Partner = { name: string; logo?: string; url?: string };
 
+// Client / partner logos shown in the auto-sliding "Trusted by" strip.
+// Logos live in public/assets/img/partners/ (normalised onto a clean white
+// tile). Add a `url` to make a logo link to the client's site.
 export const partners: Partner[] = [
-  { name: "Client One" },
-  { name: "Client Two" },
-  { name: "Client Three" },
-  { name: "Client Four" },
-  { name: "Client Five" },
+  { name: "ARTMADE Architects", logo: "/assets/img/partners/artmade-architects.png" },
+  { name: "Algory Zappia", logo: "/assets/img/partners/algory-zappia.png" },
+  { name: "CIR Construction", logo: "/assets/img/partners/cir-construction.png" },
+  { name: "Crystal Fire", logo: "/assets/img/partners/crystal-fire.png" },
+  { name: "Design & Approval Group", logo: "/assets/img/partners/design-and-approval.png" },
+  { name: "emf griffiths", logo: "/assets/img/partners/emf.png" },
+  { name: "Empire Fire", logo: "/assets/img/partners/empire-fire.png" },
+  { name: "Five Canon", logo: "/assets/img/partners/five-canon.png" },
+  { name: "GC Built", logo: "/assets/img/partners/gc-built.png" },
+  { name: "GK Strata Management", logo: "/assets/img/partners/gstrata.png" },
+  { name: "Lateral Projects", logo: "/assets/img/partners/lateral-projects.png" },
+  { name: "Linked PM", logo: "/assets/img/partners/linked-pm.png" },
+  { name: "Orwell Constructions", logo: "/assets/img/partners/orwell-construction.png" },
+  { name: "Strive", logo: "/assets/img/partners/strive.png" },
+  { name: "Vibe", logo: "/assets/img/partners/vibe.png" },
+  { name: "VMC Tech", logo: "/assets/img/partners/vmc-tech.png" },
+  { name: "Zeux", logo: "/assets/img/partners/zeux.png" },
 ];
