@@ -3,8 +3,8 @@ title: "Backflow Prevention: Protecting the Drinking Water Supply"
 description: "Why backflow prevention matters in building hydraulic design — hazard ratings, device selection and the Sydney Water requirements that catch projects out."
 tag: "Hydraulics"
 pubDate: 2026-09-03
-image: "/assets/img/hydraulic.jpg"
-imageAlt: "In-ground plumbing and drainage pipework at a construction site"
+image: "/assets/img/blog/backflow.jpg"
+imageAlt: "Backflow prevention valve assembly on a water supply in Australia"
 ---
 
 Backflow prevention is one of the least glamorous parts of a hydraulic design and one of the most important. Its job is to stop water inside a building ever flowing *back* into the drinking-water main and contaminating the public supply — a risk that is invisible until something goes wrong.

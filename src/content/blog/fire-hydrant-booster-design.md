@@ -3,8 +3,8 @@ title: "Fire Hydrant & Booster Design: Getting Firefighters the Water They Need"
 description: "How fire hydrant and booster systems are designed to AS 2419 in NSW — coverage, boosters, pump sizing and the coordination that keeps them compliant and buildable."
 tag: "Fire"
 pubDate: 2026-09-25
-image: "/assets/img/fire.jpg"
-imageAlt: "Fire pump room with pumps and red fire-protection pipework"
+image: "/assets/img/blog/booster.jpg"
+imageAlt: "Fire brigade booster / fire department connection on a building exterior"
 ---
 
 A fire hydrant system exists for one purpose: to put reliable water in the hands of firefighters at the moment they need it. Designed to AS 2419, it is deceptively simple in concept and surprisingly easy to get wrong — and the consequences of getting it wrong only show up on the worst possible day.

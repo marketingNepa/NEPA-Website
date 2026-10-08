@@ -3,8 +3,8 @@ title: "Emergency & Exit Lighting to AS 2293: Designing for the Lights-Out Momen
 description: "How emergency and exit lighting is designed to AS 2293 in NSW buildings — coverage, duration, testing, and coordinating electrical with the fire egress strategy."
 tag: "Electrical · Fire"
 pubDate: 2026-08-11
-image: "/assets/img/electrical.jpg"
-imageAlt: "Commercial main switchboard in a large building"
+image: "/assets/img/blog/exit-sign.jpg"
+imageAlt: "Illuminated green running-man emergency exit sign"
 ---
 
 Emergency and exit lighting only matters for a few minutes across a building's whole life — but those are the minutes when the mains has failed, a space is dark or filling with smoke, and people need to find their way out. Designed to AS 2293, this is a small part of the electrical scope with an outsized role in life safety.

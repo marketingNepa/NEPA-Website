@@ -3,8 +3,8 @@ title: "Stair Pressurisation & Smoke Control: Keeping Egress Paths Clear"
 description: "How stair and lift pressurisation systems keep smoke out of escape routes in NSW buildings — the engineering, the compliance, and why it sits between fire and mechanical."
 tag: "Mechanical · Fire"
 pubDate: 2026-08-18
-image: "/assets/img/mechanical.jpg"
-imageAlt: "Mechanical plant room with HVAC ductwork and insulated pipework"
+image: "/assets/img/blog/stairwell.jpg"
+imageAlt: "Fire-isolated stairwell inside a multi-storey building"
 ---
 
 In a fire, the most dangerous thing in a building is usually not the flame — it is the smoke. Smoke spreads faster than fire, obscures escape routes and incapacitates people long before heat does. Stair pressurisation is the mechanical system that keeps the one place occupants most need — the fire-isolated stair — clear enough to escape through.

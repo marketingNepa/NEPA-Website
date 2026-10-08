@@ -3,8 +3,8 @@ title: "Sprinkler System Design Under AS 2118: What Drives the Hydraulics"
 description: "How automatic sprinkler systems are designed to AS 2118 in NSW — hazard classification, hydraulic calculation, water supply and the decisions that control cost."
 tag: "Fire"
 pubDate: 2026-10-01
-image: "/assets/img/fire.jpg"
-imageAlt: "Fire pump room with pumps and red fire-protection pipework"
+image: "/assets/img/blog/sprinkler.jpg"
+imageAlt: "Automatic fire sprinkler head mounted to a ceiling"
 ---
 
 An automatic sprinkler system is one of the most effective life-safety measures a building can have — it detects and controls a fire at its source, often before the fire brigade arrives. But a sprinkler system only performs if the hydraulics behind it are right, and that is where good design earns its keep.

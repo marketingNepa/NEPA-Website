@@ -3,8 +3,8 @@ title: "Stormwater & On-Site Detention: Designing to Satisfy Council First Time"
 description: "How stormwater drainage and on-site detention (OSD) are designed for NSW developments — permissible site discharge, storage volume and coordinating tanks that earn their space."
 tag: "Hydraulics"
 pubDate: 2026-09-10
-image: "/assets/img/hydraulic.jpg"
-imageAlt: "In-ground plumbing and drainage pipework at a construction site"
+image: "/assets/img/blog/detention-basin.jpg"
+imageAlt: "Stormwater detention basin at Widemere, Western Sydney NSW"
 ---
 
 Stormwater is often where a hydraulic design quietly saves money — or quietly adds cost. Councils across NSW require most new developments to control the rate at which stormwater leaves the site, and the way that control is engineered has a real impact on buildable floor area, excavation and construction cost.
