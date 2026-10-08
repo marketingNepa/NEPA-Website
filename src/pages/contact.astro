@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactSection from "../components/ContactSection.astro";
+
+const title = "Contact NEPA Engineering | Building Services, Sydney NSW";
+const description =
+  "Get in touch with NEPA Engineering — building-services consultancy in Hurstville, Sydney. Tell us about your project for a coordinated approach.";
+const path = "/contact";
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nepaeng.com/" },
+    { "@type": "ListItem", position: 2, name: "Contact", item: "https://www.nepaeng.com/contact" },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} path={path} jsonLd={[breadcrumb]}>
+  <section class="hero section--tight">
+    <div class="wrap hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Contact</nav>
+      <p class="overline" data-reveal>Get in touch</p>
+      <h1 data-reveal data-delay="1">Let's engineer <span class="em">your next project.</span></h1>
+    </div>
+  </section>
+  <ContactSection heading="Tell us about<br>your building." />
+</BaseLayout>

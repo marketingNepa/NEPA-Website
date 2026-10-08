@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Page not found | NEPA Engineering";
+const description =
+  "The page you're looking for has moved or no longer exists. Head back to the NEPA Engineering home page or explore our building-services pages.";
+---
+
+<BaseLayout title={title} description={description} path="/404" noindex>
+  <section class="hero" style="min-height:70svh;display:grid;place-items:center;text-align:center">
+    <div class="wrap hero__inner">
+      <p class="overline center" data-reveal>Error 404</p>
+      <h1 data-reveal data-delay="1" style="font-size:var(--step-5)"><span class="em">Page not found.</span></h1>
+      <p class="lead" data-reveal data-delay="2" style="margin-inline:auto">The page you're looking for has moved or no longer exists.</p>
+      <p data-reveal data-delay="3" style="margin-top:var(--space-m)">
+        <a class="btn accent" href="/"><span>← Back to home</span></a>
+        <a class="btn ghost" href="/services" style="margin-left:.5rem"><span>Our services</span></a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

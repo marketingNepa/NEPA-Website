@@ -1,0 +1,42 @@
+---
+import { company, services } from "../data/site";
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div>
+        <img class="flogo" src="/assets/img/logo-white.png" alt={company.name} width="150" height="46" />
+        <p>Multi-disciplinary building-services engineering consultancy delivering innovative, sustainable solutions across New South Wales since {company.foundingYear}.</p>
+      </div>
+      <nav aria-label="Services">
+        <h5>Services</h5>
+        {services.map((s) => (
+          <a href={`/services/${s.slug}`}>{s.shortName}</a>
+        ))}
+        <a href="/services/cdc">Complying Development (CDC)</a>
+      </nav>
+      <nav aria-label="Company">
+        <h5>Company</h5>
+        <a href="/about">About</a>
+        <a href="/services">All services</a>
+        <a href="/blog">Insights</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <div>
+        <h5>Contact</h5>
+        <a href={company.mapsUrl} target="_blank" rel="noopener">{company.addressSingleLine}</a>
+        <a href={`tel:${company.phonePrimary}`}>{company.phonePrimaryDisplay}</a>
+        <a href={`mailto:${company.email}`}>{company.email}</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> {company.name}. All rights reserved.</span>
+      <div class="socials">
+        <a href={company.social.facebook} target="_blank" rel="noopener" aria-label="Facebook">f</a>
+        <a href={company.social.instagram} target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+      </div>
+      <span><a href="/privacy">Privacy Policy</a> · <a href="/legal">Legal Notice</a></span>
+    </div>
+  </div>
+</footer>

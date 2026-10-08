@@ -1,0 +1,75 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBand from "../components/CtaBand.astro";
+
+const title = "About | NEPA Engineering, Building Services Sydney";
+const description =
+  "Sydney building-services consultancy since 2018, delivering innovative, sustainable fire, hydraulic, mechanical and electrical design across NSW.";
+const path = "/about";
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nepaeng.com/" },
+    { "@type": "ListItem", position: 2, name: "About", item: "https://www.nepaeng.com/about" },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} path={path} jsonLd={[breadcrumb]}>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>About</nav>
+      <div class="hero__grid">
+        <div>
+          <p class="overline" data-reveal>About NEPA</p>
+          <h1 data-reveal data-delay="1">Innovative engineering, <span class="em">grounded in sustainability.</span></h1>
+          <p class="lead" data-reveal data-delay="2">A professional building-services consultancy that combines technical skill and experience with a genuine understanding of our clients' objectives — delivering buildable, efficient outcomes across New South Wales.</p>
+        </div>
+        <aside class="spec-rail" data-reveal data-delay="2" aria-label="Company at a glance">
+          <div class="srow"><span class="k">Established</span><span class="v">2018</span></div>
+          <div class="srow"><span class="k">Disciplines</span><span class="v">04</span></div>
+          <div class="srow"><span class="k">Projects</span><span class="v">120<small>+</small></span></div>
+          <div class="srow"><span class="k">Based</span><span class="v">Hurstville</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section about bg-white">
+    <div class="wrap about__grid">
+      <div class="about__media" data-reveal>
+        <img src="/assets/img/team.jpg" alt="The NEPA Engineering team" width="800" height="1000" loading="lazy" />
+        <div class="badge"><b>2018</b><span>DELIVERING SINCE</span></div>
+      </div>
+      <div>
+        <p class="overline" data-reveal>Our story</p>
+        <h2 data-reveal data-delay="1">A team that solves it on the drawing board.</h2>
+        <p data-reveal data-delay="2">Established in 2018, NEPA Engineering was built around a simple idea: when fire, hydraulic, mechanical and electrical design sit inside one accountable team, coordination problems get solved before they ever reach site.</p>
+        <p data-reveal data-delay="2">That mindset produces smarter, more buildable outcomes — the kind of thinking that once removed two tanks and pumps from a client's fire-hydrant system through a single better idea.</p>
+        <div class="values">
+          <div class="value" data-reveal><h4>Teamwork</h4><p>Collaboration fosters creativity and better outcomes for clients.</p></div>
+          <div class="value" data-reveal data-delay="1"><h4>Respect</h4><p>Respect for our team, partners and the environment is central to our practice.</p></div>
+          <div class="value" data-reveal data-delay="2"><h4>Integrity</h4><p>Honesty and transparency underpin every client relationship.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="band__media"><img src="/assets/img/blueprint.jpg" alt="Engineering blueprint detail" width="1600" height="900" loading="lazy" /></div>
+    <div class="wrap">
+      <p class="overline light" data-reveal>How we work</p>
+      <h2 data-reveal data-delay="1" style="font-size:var(--step-4);max-width:18ch">Continuity from first sketch to final commissioning.</h2>
+      <div class="grid">
+        <div class="cap" data-reveal><span class="k">01</span><h4>Coordinated by design</h4><p>One team across all services removes the clash risk of separate consultants.</p></div>
+        <div class="cap" data-reveal data-delay="1"><span class="k">02</span><h4>Buildable solutions</h4><p>Design decisions tested against real construction and cost from day one.</p></div>
+        <div class="cap" data-reveal data-delay="2"><span class="k">03</span><h4>Smoother commissioning</h4><p>Fewer surprises on site means faster, cleaner project handover.</p></div>
+        <div class="cap" data-reveal data-delay="3"><span class="k">04</span><h4>Better outcomes</h4><p>Efficiency and effectiveness maximised across the whole project.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand heading="Let's work together." />
+</BaseLayout>

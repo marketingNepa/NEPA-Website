@@ -1,7 +1,8 @@
-name: Deploy to cPanel
+name: Build & Deploy to cPanel
 
-# Push-to-deploy: every push to main uploads the site to your cPanel host over FTPS.
-# Add repository secrets: FTP_HOST, FTP_USER, FTP_PASS  (Settings → Secrets → Actions)
+# Push-to-deploy: every push to main builds the Astro site and uploads
+# the generated dist/ folder to your cPanel host over FTPS.
+# Add repository secrets: FTP_HOST, FTP_USER, FTP_PASS (Settings → Secrets → Actions)
 
 on:
   push:
@@ -9,23 +10,30 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Upload to cPanel via FTPS
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Upload dist/ to cPanel via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           protocol: ftps
+          local-dir: ./dist/
           server-dir: public_html/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            deploy/**
-            README.md
-            .github/**

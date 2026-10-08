@@ -1,21 +1,23 @@
 #!/usr/bin/env bash
 # =============================================================
-#  NEPA Engineering — one-command deploy to cPanel hosting
+#  NEPA Engineering — one-command build + deploy to cPanel
 # =============================================================
-#  Pushes the website (everything except /deploy and dotfiles
-#  you exclude) to your cPanel account over FTPS using lftp.
+#  Builds the Astro site to ./dist and mirrors it to your
+#  cPanel account over FTPS using lftp.
 #
 #  USAGE
 #    1. Copy deploy.env.example -> deploy.env and fill in your
 #       cPanel FTP details (never commit deploy.env).
 #    2. Run:   ./deploy/deploy.sh
 #
-#  REQUIREMENTS: lftp  (sudo apt install lftp  /  brew install lftp)
+#  REQUIREMENTS: node + npm, and lftp
+#                (sudo apt install lftp  /  brew install lftp)
 # =============================================================
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+DIST_DIR="$ROOT_DIR/dist"
 ENV_FILE="$SCRIPT_DIR/deploy.env"
 
 if [[ ! -f "$ENV_FILE" ]]; then
@@ -34,12 +36,24 @@ REMOTE_DIR="${REMOTE_DIR:-/public_html}"
 FTP_PORT="${FTP_PORT:-21}"
 
 command -v lftp >/dev/null 2>&1 || { echo "✗ lftp is not installed. Install it and retry."; exit 1; }
+command -v npm  >/dev/null 2>&1 || { echo "✗ npm is not installed. Install Node.js and retry."; exit 1; }
 
+echo "➜ Building NEPA Engineering (Astro)"
+( cd "$ROOT_DIR" && npm ci && npm run build )
+
+if [[ ! -d "$DIST_DIR" ]]; then
+  echo "✗ Build did not produce a dist/ folder. Aborting."
+  exit 1
+fi
+
+echo ""
 echo "➜ Deploying NEPA Engineering"
-echo "  Local : $ROOT_DIR"
+echo "  Local : $DIST_DIR"
 echo "  Remote: $FTP_USER@$FTP_HOST:$FTP_PORT $REMOTE_DIR"
 echo ""
 
+# Mirror the built static site (dist/) to the server. The .htaccess in
+# public/ is emitted into dist/ by Astro, so server config ships too.
 lftp -u "$FTP_USER","$FTP_PASS" -p "$FTP_PORT" "ftp://$FTP_HOST" <<EOF
 set ftp:ssl-allow true
 set ftp:ssl-force true
@@ -48,12 +62,8 @@ set ssl:verify-certificate no
 set net:timeout 15
 set net:max-retries 2
 mirror --reverse --delete --verbose \
-  --exclude-glob deploy/ \
-  --exclude-glob deploy \
-  --exclude-glob .git/ \
   --exclude-glob .DS_Store \
-  --exclude-glob README.md \
-  "$ROOT_DIR" "$REMOTE_DIR"
+  "$DIST_DIR" "$REMOTE_DIR"
 bye
 EOF
 

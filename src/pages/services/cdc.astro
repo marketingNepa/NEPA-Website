@@ -1,0 +1,157 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactSection from "../../components/ContactSection.astro";
+
+const title = "Complying Development Certificate (CDC) | NEPA";
+const description =
+  "Coordinated building-services documentation for Complying Development Certificate (CDC) projects in NSW — fire, hydraulic, mechanical and electrical in one.";
+const path = "/services/cdc";
+
+const steps = [
+  { n: "01", title: "Eligibility check", body: "We review whether your project meets the development standards for a CDC under the relevant NSW State Environmental Planning Policy." },
+  { n: "02", title: "Coordinated design", body: "Fire, hydraulic, mechanical and electrical services designed together to the standard a certifier needs — no clashes, no gaps." },
+  { n: "03", title: "Documentation", body: "Clear, certifiable building-services documentation packaged to support your CDC application." },
+  { n: "04", title: "Certifier support", body: "We liaise with your registered certifier through assessment and respond to any queries quickly." },
+];
+
+const faqs = [
+  {
+    q: "What is a Complying Development Certificate?",
+    a: "A Complying Development Certificate (CDC) is a fast-track approval pathway in NSW that combines planning and construction approval into a single certificate. If a project meets specific development standards, it can be approved by an accredited certifier without a full development application — significantly reducing approval time.",
+  },
+  {
+    q: "How does NEPA help with a CDC application?",
+    a: "We prepare the coordinated building-services design and documentation — fire, hydraulic, mechanical and electrical — to the standard a certifier requires. Because one team handles every discipline, the documentation is consistent and clash-free, which helps the assessment move smoothly.",
+  },
+  {
+    q: "Is my project eligible for complying development?",
+    a: "Eligibility depends on the project type, location and whether it meets the relevant development standards under NSW planning policy. We can carry out an early eligibility check so you know which approval pathway suits your project before you commit to a design.",
+  },
+  {
+    q: "Does the CDC pathway lower design standards?",
+    a: "No. A CDC still requires fully compliant building-services engineering. The pathway speeds up approval for projects that already meet the standards — it does not reduce the technical requirements the design must satisfy.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "Complying Development Certificate (CDC) building services documentation",
+  name: "Complying Development Certificate (CDC) Support",
+  description,
+  provider: { "@type": "ProfessionalService", name: "NEPA Engineering", url: "https://www.nepaeng.com/" },
+  areaServed: { "@type": "State", name: "New South Wales" },
+  url: `https://www.nepaeng.com${path}`,
+};
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nepaeng.com/" },
+    { "@type": "ListItem", position: 2, name: "Services", item: "https://www.nepaeng.com/services" },
+    { "@type": "ListItem", position: 3, name: "CDC", item: `https://www.nepaeng.com${path}` },
+  ],
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  image="/assets/img/cta-building.jpg"
+  jsonLd={[serviceSchema, faqSchema, breadcrumb]}
+>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/services">Services</a><span>/</span>CDC</nav>
+      <div class="hero__grid">
+        <div>
+          <p class="overline" data-reveal>Fast-track approval</p>
+          <h1 data-reveal data-delay="1">Complying Development <span class="em">Certificate support.</span></h1>
+          <p class="lead" data-reveal data-delay="2">A Complying Development Certificate (CDC) is the fast-track approval pathway in NSW — planning and construction approval in one certificate. We provide the coordinated building-services documentation your project needs to qualify.</p>
+          <div class="hero__cta" data-reveal data-delay="3">
+            <a class="btn accent" href="/contact"><span>Check your eligibility</span><span class="arrow">↗</span></a>
+            <a class="btn ghost" href="#faq"><span>CDC FAQs</span></a>
+          </div>
+        </div>
+        <aside class="spec-rail" data-reveal data-delay="2" aria-label="CDC at a glance">
+          <div class="srow"><span class="k">Pathway</span><span class="v">Fast-track</span></div>
+          <div class="srow"><span class="k">Jurisdiction</span><span class="v">NSW</span></div>
+          <div class="srow"><span class="k">Services</span><span class="v">4<small>in one</small></span></div>
+          <div class="srow"><span class="k">Output</span><span class="v">Certifiable</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is a CDC -->
+  <section class="section wrap bg-white">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>The basics</p>
+        <h2 data-reveal data-delay="1">What is complying development?</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">A combined planning and construction approval for projects that meet pre-set development standards — assessed by an accredited certifier, not a full development application.</p>
+    </div>
+    <div class="outcomes" style="grid-template-columns:repeat(3,1fr)">
+      <div class="outcome" data-reveal><h4>Faster</h4><p>One certificate replaces a separate DA and construction certificate, cutting approval time dramatically.</p></div>
+      <div class="outcome" data-reveal data-delay="1"><h4>Certain</h4><p>Clear development standards mean a more predictable outcome when your design complies.</p></div>
+      <div class="outcome" data-reveal data-delay="2"><h4>Still compliant</h4><p>A CDC is not a shortcut on quality — the building-services engineering must be fully compliant.</p></div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section wrap">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>How we work</p>
+        <h2 data-reveal data-delay="1">From eligibility<br>to certificate.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">A clear path that keeps your approval moving — with every building service coordinated by one team.</p>
+    </div>
+    <div class="steps">
+      {steps.map((s) => (
+        <div class="step" data-reveal>
+          <div class="n">{s.n}</div>
+          <h4>{s.title}</h4>
+          <p>{s.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section wrap bg-paper-2" id="faq">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>CDC questions</p>
+        <h2 data-reveal data-delay="1">Frequently asked.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">The questions clients ask most about the complying development pathway in NSW.</p>
+    </div>
+    <div class="faq" data-reveal>
+      {faqs.map((f, i) => (
+        <details open={i === 0}>
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+    <p class="form-note" style="color:var(--muted);margin-top:var(--space-m)">
+      This information is general in nature. Eligibility for complying development depends on your specific project and current NSW planning policy — <a href="/contact" style="color:var(--blue)">contact us</a> for project-specific advice.
+    </p>
+  </section>
+
+  <ContactSection heading="Thinking about the<br>CDC pathway?" />
+</BaseLayout>

@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactSection from "../../components/ContactSection.astro";
+import { services } from "../../data/site";
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const path = `/services/${service.slug}`;
+
+// Service schema for this discipline.
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: service.name,
+  name: service.name,
+  description: service.seoDescription,
+  provider: {
+    "@type": "ProfessionalService",
+    name: "NEPA Engineering",
+    url: "https://www.nepaeng.com/",
+  },
+  areaServed: { "@type": "State", name: "New South Wales" },
+  url: `https://www.nepaeng.com${path}`,
+};
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nepaeng.com/" },
+    { "@type": "ListItem", position: 2, name: "Services", item: "https://www.nepaeng.com/services" },
+    { "@type": "ListItem", position: 3, name: service.shortName, item: `https://www.nepaeng.com${path}` },
+  ],
+};
+
+// Related services (the other three).
+const related = services.filter((s) => s.slug !== service.slug);
+---
+
+<BaseLayout
+  title={service.seoTitle}
+  description={service.seoDescription}
+  path={path}
+  image={service.image}
+  jsonLd={[serviceSchema, breadcrumb]}
+>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/services">Services</a><span>/</span>{service.shortName}</nav>
+      <div class="hero__grid">
+        <div>
+          <p class="overline" data-reveal>Service {service.num}</p>
+          <h1 data-reveal data-delay="1">{service.shortName}</h1>
+          <p class="lead" data-reveal data-delay="2">{service.summary}</p>
+          <div class="hero__cta" data-reveal data-delay="3">
+            <a class="btn accent" href="/contact"><span>Enquire about {service.shortName.toLowerCase()}</span><span class="arrow">↗</span></a>
+          </div>
+        </div>
+        <aside class="spec-rail" data-reveal data-delay="2" aria-label="Service overview">
+          <div class="srow"><span class="k">Discipline</span><span class="v">{service.num}</span></div>
+          <div class="srow"><span class="k">Coverage</span><span class="v">NSW<small>wide</small></span></div>
+          <div class="srow"><span class="k">Deliverable</span><span class="v">Certifiable</span></div>
+          <div class="srow"><span class="k">Team</span><span class="v">In-house</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scope of works -->
+  <section class="section wrap bg-white">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>Scope of works</p>
+        <h2 data-reveal data-delay="1">What we design.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">Our {service.shortName.toLowerCase()} capability spans the full project lifecycle — from early strategy to certifiable documentation.</p>
+    </div>
+    <div class="scope-grid">
+      {service.scope.map((group) => (
+        <div class="scope" data-reveal>
+          <h3>{group.title}</h3>
+          <ul>
+            {group.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Outcomes -->
+  <section class="section wrap">
+    <p class="overline" data-reveal>Why it matters</p>
+    <h2 data-reveal data-delay="1" style="font-size:var(--step-3);max-width:20ch">Design that works on paper and on site.</h2>
+    <div class="outcomes">
+      {service.outcomes.map((o) => (
+        <div class="outcome" data-reveal>
+          <h4>{o.title}</h4>
+          <p>{o.body}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Related services -->
+  <section class="section wrap bg-paper-2">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>More disciplines</p>
+        <h2 data-reveal data-delay="1">Coordinated across every service.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">The same team handles the rest of your building services — so nothing falls through the gaps.</p>
+    </div>
+    <div class="svc-cards">
+      {related.map((s) => (
+        <a class="svc-card" href={`/services/${s.slug}`} data-reveal>
+          <div class="svc-card__media"><img src={s.image} alt={s.name} width="800" height="450" loading="lazy" /></div>
+          <div class="svc-card__body">
+            <span class="num">{s.num}</span>
+            <h3>{s.shortName}</h3>
+            <p>{s.excerpt}</p>
+            <span class="read">Explore {s.shortName} →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <ContactSection heading={`Need ${service.shortName.toLowerCase()}<br>on your next project?`} />
+</BaseLayout>

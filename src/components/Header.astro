@@ -1,0 +1,54 @@
+---
+import { company, primaryNav } from "../data/site";
+
+interface Props {
+  /** When true the header overlays a dark hero (transparent until scrolled). */
+  overlay?: boolean;
+}
+const { overlay = false } = Astro.props;
+
+// Normalise current path for active-state matching.
+const current = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const navHrefs = primaryNav.map((n) => n.href.replace(/\/+$/, "") || "/");
+function isActive(href: string): boolean {
+  const h = href.replace(/\/+$/, "") || "/";
+  if (h === "/") return current === "/";
+  if (current === h) return true;
+  // Only mark a parent (e.g. /services) active for a descendant when no more
+  // specific nav item (e.g. /services/cdc) already matches that descendant.
+  if (current.startsWith(h + "/")) {
+    const moreSpecific = navHrefs.some(
+      (other) => other !== h && other.startsWith(h + "/") && (current === other || current.startsWith(other + "/"))
+    );
+    return !moreSpecific;
+  }
+  return false;
+}
+---
+
+<div class="scroll-bar" id="scrollBar"></div>
+
+<header class={`site-header${overlay ? " overlay" : ""}`} id="header" data-overlay={overlay ? "true" : "false"}>
+  <a class="brand" href="/" aria-label={`${company.name} home`}>
+    <img class="logo-light" src="/assets/img/logo-white.png" alt={company.name} width="140" height="42" />
+    <img class="logo-dark" src="/assets/img/logo.png" alt={company.name} width="140" height="42" />
+  </a>
+  <nav class="nav" id="nav" aria-label="Primary">
+    {primaryNav.map((item) =>
+      item.label === "Contact" ? (
+        <a class="btn accent" href={item.href}><span>Get in touch</span></a>
+      ) : (
+        <a
+          class="nav-link"
+          href={item.href}
+          aria-current={isActive(item.href) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      )
+    )}
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
