@@ -15,6 +15,25 @@ const description =
 
 const fmt = (d: Date) =>
   d.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
+
+// Rotating hero headline phrases. The fixed lead-in is "Engineering the systems"
+// and these complete the sentence, cycling one at a time.
+const heroSlogans = [
+  "behind great buildings",
+  "that keep buildings running",
+  "that make buildings safer",
+  "that bring buildings to life",
+  "behind smarter developments",
+];
+
+// Rotating secondary slogans (the line beneath the headline).
+const heroSubSlogans = [
+  "Fire, hydraulic, mechanical and electrical — engineered by one coordinated team.",
+  "Multi-disciplinary building services, from first concept to final commissioning.",
+  "Smarter engineering that saves cost, space and time on site.",
+  "Buildable, compliant design across every building service — under one roof.",
+  "One accountable team for every service your building depends on.",
+];
 ---
 
 <BaseLayout title={title} description={description} path="/" overlayHeader>
@@ -25,9 +44,9 @@ const fmt = (d: Date) =>
     </div>
     <div class="hero__inner">
       <p class="overline" data-reveal>{company.tagline}</p>
-      <h1 data-reveal data-delay="1">Engineering the systems <span class="em">behind great buildings.</span></h1>
+      <h1 data-reveal data-delay="1">Engineering the systems <span class="em" id="heroSlogan" data-rotator={JSON.stringify(heroSlogans)}>{heroSlogans[0]}</span></h1>
       <div class="hero__row" style="display:flex;flex-wrap:wrap;gap:var(--space-m);align-items:flex-end;justify-content:space-between">
-        <p class="lead" data-reveal data-delay="2">Fire, hydraulic, mechanical and electrical design — coordinated end-to-end by one multi-disciplinary team, from concept through to commissioning.</p>
+        <p class="lead" data-reveal data-delay="2"><span id="heroSub" data-rotator={JSON.stringify(heroSubSlogans)}>{heroSubSlogans[0]}</span></p>
         <div class="hero__cta" data-reveal data-delay="3">
           <a class="btn accent" href="/contact"><span>Start a project</span><span class="arrow">↗</span></a>
           <a class="btn ghost light" href="/services"><span>Our services</span></a>

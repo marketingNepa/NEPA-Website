@@ -13,8 +13,8 @@
   --accent-2:   #5bb02e;   /* green signal (ratings / success) */
 
   /* Light surfaces (the new dominant palette) */
-  --paper:      #f7f9fb;   /* page base */
-  --paper-2:    #eef3f8;   /* alt band */
+  --paper:      #ffffff;   /* page base — plain white */
+  --paper-2:    #f3f6fa;   /* very subtle alt band */
   --white:      #ffffff;
 
   --line:       rgba(10, 31, 51, 0.12);
@@ -183,7 +183,7 @@ img { display: block; max-width: 100%; height: auto; }
 .site-header .nav-toggle span { background: var(--ink); }
 
 .site-header.scrolled {
-  background: rgba(247,249,251,0.9);
+  background: rgba(255,255,255,0.92);
   backdrop-filter: blur(12px);
   box-shadow: 0 1px 0 var(--line);
   padding-block: 0.7rem;
@@ -325,6 +325,16 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .hero h1 .em { color: var(--blue); }
 .hero p.lead { max-width: 46ch; }
+
+/* Rotating slogans — smooth cross-fade as phrases change */
+.rotator {
+  display: inline-block;
+  transition: opacity .4s var(--ease), transform .4s var(--ease);
+}
+.rotator--out { opacity: 0; transform: translateY(0.25em); }
+@media (prefers-reduced-motion: reduce){
+  .rotator { transition: none; }
+}
 .hero__cta { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: var(--space-m); }
 
 /* light hero with a bright image panel on the right (home) */

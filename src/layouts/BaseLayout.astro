@@ -108,6 +108,30 @@ const {
       const yr = document.getElementById("year");
       if (yr) yr.textContent = String(new Date().getFullYear());
 
+      // Rotating slogans — any element with [data-rotator] holding a JSON array
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduceMotion) {
+        document.querySelectorAll<HTMLElement>("[data-rotator]").forEach((el) => {
+          let phrases: string[] = [];
+          try {
+            phrases = JSON.parse(el.dataset.rotator || "[]");
+          } catch {
+            phrases = [];
+          }
+          if (phrases.length < 2) return;
+          let i = 0;
+          el.classList.add("rotator");
+          setInterval(() => {
+            el.classList.add("rotator--out");
+            setTimeout(() => {
+              i = (i + 1) % phrases.length;
+              el.textContent = phrases[i];
+              el.classList.remove("rotator--out");
+            }, 420);
+          }, 3600);
+        });
+      }
+
       // Contact form — graceful AJAX submit
       const form = document.getElementById("contactForm") as HTMLFormElement | null;
       const status = document.getElementById("formStatus");
