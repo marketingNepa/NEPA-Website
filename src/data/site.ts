@@ -37,7 +37,7 @@ export const company = {
   //   2. Or search your business on Google Maps, open the listing, click
   //      "Share", and copy the  https://maps.app.goo.gl/XXXX  link.
   // Paste your link below (replace the placeholder). Leave as "" to hide the button.
-  googleReviewsUrl: "https://g.page/r/REPLACE_WITH_NEPA_REVIEW_ID/review",
+  googleReviewsUrl: "https://g.page/r/CbGnQ8n5eS9JEBM/review",
 } as const;
 
 export type NavChild = { label: string; href: string };
