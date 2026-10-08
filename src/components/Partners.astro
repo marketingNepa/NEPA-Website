@@ -1,0 +1,32 @@
+---
+import { partners } from "../data/site";
+
+interface Props {
+  heading?: string;
+}
+const { heading = "Trusted by builders, developers & architects across NSW" } = Astro.props;
+---
+
+{partners.length > 0 && (
+  <section class="section--tight wrap partners" aria-label="Trusted partners">
+    <p class="eyebrow" data-reveal>{heading}</p>
+    <div class="partners__grid">
+      {partners.map((p) => {
+        const inner = p.logo ? (
+          <img src={p.logo} alt={`${p.name} logo`} width="160" height="56" loading="lazy" />
+        ) : (
+          <span class="wordmark">{p.name}</span>
+        );
+        return (
+          <div class="partner" data-reveal>
+            {p.url ? (
+              <a href={p.url} target="_blank" rel="noopener" aria-label={p.name}>{inner}</a>
+            ) : (
+              inner
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </section>
+)}

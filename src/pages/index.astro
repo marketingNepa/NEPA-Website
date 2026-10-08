@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ContactSection from "../components/ContactSection.astro";
+import Partners from "../components/Partners.astro";
 import { services, company } from "../data/site";
 import { getCollection } from "astro:content";
 
@@ -16,23 +17,20 @@ const fmt = (d: Date) =>
   d.toLocaleDateString("en-AU", { day: "numeric", month: "short", year: "numeric" });
 ---
 
-<BaseLayout title={title} description={description} path="/">
-  <!-- HERO (light editorial — bright image on a panel, not a dark full-bleed) -->
-  <section class="hero hero--split">
-    <div class="wrap hero__inner">
-      <div class="hero__grid">
-        <div>
-          <p class="overline" data-reveal>{company.tagline}</p>
-          <h1 data-reveal data-delay="1">Engineering the systems <span class="em">behind great buildings.</span></h1>
-          <p class="lead" data-reveal data-delay="2">Fire, hydraulic, mechanical and electrical design — coordinated end-to-end by one multi-disciplinary team, from concept through to commissioning.</p>
-          <div class="hero__cta" data-reveal data-delay="3">
-            <a class="btn accent" href="/contact"><span>Start a project</span><span class="arrow">↗</span></a>
-            <a class="btn ghost" href="/services"><span>Our services</span></a>
-          </div>
-        </div>
-        <div class="hero__panel" data-reveal data-delay="2">
-          <img src="/assets/img/hero-building.jpg" alt="Modern high-rise commercial building against a bright blue sky" fetchpriority="high" width="1920" height="1280" />
-          <span class="tagchip">Building services, Sydney NSW</span>
+<BaseLayout title={title} description={description} path="/" overlayHeader>
+  <!-- HERO (full-bleed photo background — bright Sydney CBD) -->
+  <section class="hero hero--dark hero--bright">
+    <div class="hero__media">
+      <img src="/assets/img/hero-building.jpg" alt="Bright Sydney CBD skyline with modern commercial towers" fetchpriority="high" width="1800" height="1293" />
+    </div>
+    <div class="hero__inner">
+      <p class="overline" data-reveal>{company.tagline}</p>
+      <h1 data-reveal data-delay="1">Engineering the systems <span class="em">behind great buildings.</span></h1>
+      <div class="hero__row" style="display:flex;flex-wrap:wrap;gap:var(--space-m);align-items:flex-end;justify-content:space-between">
+        <p class="lead" data-reveal data-delay="2">Fire, hydraulic, mechanical and electrical design — coordinated end-to-end by one multi-disciplinary team, from concept through to commissioning.</p>
+        <div class="hero__cta" data-reveal data-delay="3">
+          <a class="btn accent" href="/contact"><span>Start a project</span><span class="arrow">↗</span></a>
+          <a class="btn ghost light" href="/services"><span>Our services</span></a>
         </div>
       </div>
       <div class="hero__stats" data-reveal data-delay="3">
@@ -51,6 +49,9 @@ const fmt = (d: Date) =>
       <span>Fire Protection</span><span>Hydraulics</span><span>Mechanical</span><span>Electrical</span><span>CDC</span><span>BIM Coordination</span>
     </div>
   </div>
+
+  <!-- TRUSTED PARTNERS / CLIENT LOGOS -->
+  <Partners />
 
   <!-- DISCIPLINES -> link to real service pages -->
   <section class="section wrap" id="disciplines">

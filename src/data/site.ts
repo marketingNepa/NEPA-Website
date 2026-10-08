@@ -410,3 +410,19 @@ export const services: Service[] = [
 export function getService(slug: string): Service | undefined {
   return services.find((s) => s.slug === slug);
 }
+
+// ---------------------------------------------------------
+// Trusted partners / client logos.
+// To use a real logo, drop the file in public/assets/img/partners/
+// and set `logo: "/assets/img/partners/<file>.svg"`.
+// Until a logo image is supplied, the `name` renders as a text wordmark.
+// ---------------------------------------------------------
+export type Partner = { name: string; logo?: string; url?: string };
+
+export const partners: Partner[] = [
+  { name: "Client One" },
+  { name: "Client Two" },
+  { name: "Client Three" },
+  { name: "Client Four" },
+  { name: "Client Five" },
+];
