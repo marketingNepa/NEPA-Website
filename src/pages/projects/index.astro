@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { projectCategories } from "../../data/site";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects", ({ data }) => !data.draft)).sort(
+  (a, b) => (b.data.year ?? 0) - (a.data.year ?? 0)
+);
+
+const title = "Projects | Completed Building Services Work | NEPA";
+const description =
+  "Completed building-services projects by NEPA Engineering across NSW — residential, commercial, industrial and boarding-house developments.";
+const path = "/projects";
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nepaeng.com/" },
+    { "@type": "ListItem", position: 2, name: "Projects", item: "https://www.nepaeng.com/projects" },
+  ],
+};
+
+const itemList = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "NEPA Engineering projects",
+  itemListElement: projects.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: p.data.title,
+    url: `https://www.nepaeng.com/projects/${p.slug}`,
+  })),
+};
+
+const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+---
+
+<BaseLayout title={title} description={description} path={path} jsonLd={[breadcrumb, itemList]}>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Projects</nav>
+      <div class="hero__grid">
+        <div>
+          <p class="overline" data-reveal>Our work</p>
+          <h1 data-reveal data-delay="1">Projects <span class="em">delivered across NSW.</span></h1>
+          <p class="lead" data-reveal data-delay="2">A selection of completed building-services projects — residential, commercial, industrial and boarding-house developments — each coordinated end-to-end by one multi-disciplinary team.</p>
+        </div>
+        <aside class="spec-rail" data-reveal data-delay="2" aria-label="Projects at a glance">
+          <div class="srow"><span class="k">Delivered</span><span class="v">120<small>+</small></span></div>
+          <div class="srow"><span class="k">Sectors</span><span class="v">4</span></div>
+          <div class="srow"><span class="k">Coverage</span><span class="v">NSW<small>wide</small></span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <!-- Category filter -->
+    <div class="filters" role="group" aria-label="Filter projects by category">
+      <button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+      {projectCategories.map((cat) => (
+        <button class="filter-btn" data-filter={slugify(cat)} aria-pressed="false">{cat}</button>
+      ))}
+    </div>
+
+    <div class="projects-grid" id="projectsGrid">
+      {projects.map((p) => (
+        <a class="proj" href={`/projects/${p.slug}`} data-category={slugify(p.data.category)} data-reveal>
+          <div class="proj__media">
+            <span class="proj__cat">{p.data.category}</span>
+            <img src={p.data.image} alt={p.data.imageAlt} width="640" height="480" loading="lazy" />
+          </div>
+          <div class="proj__body">
+            <h3>{p.data.title}</h3>
+            <span class="proj__loc">{p.data.location}{p.data.year ? ` · ${p.data.year}` : ""}</span>
+            <p>{p.data.description}</p>
+            {p.data.services.length > 0 && (
+              <div class="proj__tags">{p.data.services.map((s) => <span>{s}</span>)}</div>
+            )}
+            <span class="read">View project →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+    <p class="projects-empty" id="projectsEmpty" hidden>No projects in this category yet — check back soon.</p>
+  </section>
+
+  <CtaBand heading="Have a project like these?" buttonLabel="Start a conversation" />
+</BaseLayout>
+
+<script>
+  // Client-side category filtering (no page reload).
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const cards = document.querySelectorAll<HTMLElement>("#projectsGrid .proj");
+  const empty = document.getElementById("projectsEmpty");
+
+  function applyFilter(filter: string) {
+    let visible = 0;
+    cards.forEach((card) => {
+      const show = filter === "all" || card.dataset.category === filter;
+      card.classList.toggle("is-hidden", !show);
+      if (show) visible++;
+    });
+    if (empty) empty.hidden = visible !== 0;
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      buttons.forEach((b) => b.setAttribute("aria-pressed", "false"));
+      btn.setAttribute("aria-pressed", "true");
+      applyFilter(btn.dataset.filter || "all");
+    });
+  });
+</script>

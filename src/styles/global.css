@@ -547,6 +547,62 @@ img { display: block; max-width: 100%; height: auto; }
 }
 
 /* =======================================================
+   PROJECTS
+   ======================================================= */
+.filters { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: var(--space-l); }
+.filter-btn {
+  font-family: var(--font-display); font-weight: 500; font-size: var(--step--1);
+  letter-spacing: .02em; color: var(--ink);
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 2px; padding: .6rem 1.1rem; cursor: pointer;
+  transition: color .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+}
+@media (hover: hover){ .filter-btn:hover { border-color: var(--line-strong); } }
+.filter-btn[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-m); }
+@media (max-width: 860px){ .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px){ .projects-grid { grid-template-columns: 1fr; } }
+.proj {
+  position: relative; display: flex; flex-direction: column;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; background: #fff;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.proj__media { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+.proj__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+.proj__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(10,31,51,.5)); }
+.proj__cat {
+  position: absolute; top: .8rem; left: .8rem; z-index: 1;
+  font-family: var(--font-display); font-weight: 600; font-size: .72rem;
+  letter-spacing: .1em; text-transform: uppercase; color: #fff;
+  background: var(--grad-soft); padding: .35rem .7rem; border-radius: 2px;
+}
+.proj__body { padding: var(--space-m); display: flex; flex-direction: column; gap: .4rem; flex: 1; }
+.proj__body h3 { font-size: var(--step-1); margin: 0; }
+.proj__loc { font-size: var(--step--1); color: var(--muted); }
+.proj__body p { color: var(--muted); font-size: var(--step--1); margin: 0; }
+.proj__tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .3rem; }
+.proj__tags span { font-size: .7rem; color: var(--blue); border: 1px solid var(--line); border-radius: 2px; padding: .15rem .5rem; }
+.proj .read { margin-top: auto; font-family: var(--font-display); font-weight: 500; font-size: .9rem; color: var(--blue); padding-top: .4rem; }
+@media (hover: hover){
+  .proj:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -24px rgba(10,31,51,.35); }
+  .proj:hover .proj__media img { transform: scale(1.06); }
+}
+.proj.is-hidden { display: none; }
+.projects-empty { color: var(--muted); padding: var(--space-l) 0; }
+
+/* project detail */
+.proj-detail .meta-rail { display: grid; gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.proj-detail .meta-rail .srow { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; border-bottom: 1px solid var(--line); }
+.proj-detail .meta-rail .srow:last-child { border-bottom: 0; }
+.proj-detail .meta-rail .k { color: var(--muted); font-size: var(--step--1); }
+.proj-detail .meta-rail .v { font-family: var(--font-display); font-weight: 600; text-align: right; }
+.proj-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-s); margin-top: var(--space-l); }
+@media (max-width: 700px){ .proj-gallery { grid-template-columns: repeat(2,1fr); } }
+.proj-gallery img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: var(--radius); }
+
+/* =======================================================
    CDC — process steps
    ======================================================= */
 .steps { display:grid; grid-template-columns: repeat(4,1fr); gap: var(--space-m); margin-top: var(--space-l); counter-reset: step; }

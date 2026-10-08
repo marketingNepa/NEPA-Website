@@ -36,10 +36,19 @@ export type NavItem = { label: string; href: string };
 export const primaryNav: NavItem[] = [
   { label: "Services", href: "/services" },
   { label: "CDC", href: "/services/cdc" },
+  { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
   { label: "Insights", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
+
+// Project categories (keep in sync with the enum in src/content/config.ts).
+export const projectCategories = [
+  "Residential",
+  "Commercial",
+  "Industrial",
+  "Boarding House",
+] as const;
 
 export type ArticleBlock = { h?: string; p?: string[] };
 
