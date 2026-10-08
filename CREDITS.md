@@ -5,7 +5,8 @@ licences require attribution, provided below. See `/credits` on the live site to
 
 | Used for | Title | Author | Licence | Source |
 |---|---|---|---|---|
-| Homepage hero (`hero-building.jpg`) | Skyscrapers in the Sydney Central Business District, 2023 | Kgbo | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [Commons](https://commons.wikimedia.org/wiki/File:Skyscrapers_in_the_Sydney_Central_Business_District,_2023,_01.jpg) |
+| Homepage hero (`hero-harbour.jpg`) | Sydney Circular Quay promenade and harbour panorama | NEPA Engineering | Supplied by NEPA Engineering | — |
+| Residential project (`hero-building.jpg`) | Skyscrapers in the Sydney Central Business District, 2023 | Kgbo | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [Commons](https://commons.wikimedia.org/wiki/File:Skyscrapers_in_the_Sydney_Central_Business_District,_2023,_01.jpg) |
 | Fire Protection (`fire.jpg`) | Fire Pump Room, Brisbane, 2021 | Kgbo | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | [Commons](https://commons.wikimedia.org/wiki/File:Fire_Pump_Room,_Brisbane,_2021.jpg) |
 | Hydraulic Services (`hydraulic.jpg`) | City Underground Conduit, Milwaukee | Aaron Volkening | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | [Flickr](https://www.flickr.com/photos/87297882@N03/54452685638) |
 | Mechanical Services (`mechanical.jpg`) | Rooftop air-cooled chillers / condenser plant | NEPA Engineering | Supplied by NEPA Engineering | — |
