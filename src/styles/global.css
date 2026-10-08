@@ -483,19 +483,42 @@ img { display: block; max-width: 100%; height: auto; }
 .about__media { position: relative; }
 .about__media img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: var(--radius); }
 .about__media .badge {
-  position: absolute; left: -1.5rem; bottom: -1.5rem;
-  background: var(--grad); color: #fff; padding: 1.4rem 1.6rem;
+  position: absolute; left: 1.25rem; bottom: 1.25rem;
+  background: var(--grad); color: #fff; padding: 1.1rem 1.4rem;
   border-radius: var(--radius); font-family: var(--font-display);
+  box-shadow: 0 20px 44px -22px rgba(7,45,82,.6);
 }
-.about__media .badge b { font-size: var(--step-3); display:block; line-height:1; }
-.about__media .badge span { font-size: var(--step--1); letter-spacing:.08em; opacity:.9; }
-.about h2 { font-size: var(--step-4); }
+.about__media .badge b { font-size: var(--step-2); display:block; line-height:1; }
+.about__media .badge span { font-size: .72rem; letter-spacing:.14em; text-transform:uppercase; opacity:.92; margin-top:.25rem; display:block; }
 
-.values { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-m); margin-top: var(--space-l); }
+/* Consistent typographic rhythm with the rest of the site */
+.about__body > .lead { margin-top: var(--space-s); }
+.about__cta { margin-top: var(--space-l); margin-bottom: 0; }
+
+.values {
+  list-style: none; margin: var(--space-l) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: var(--space-s);
+}
 @media (max-width: 620px){ .values { grid-template-columns:1fr; } }
-.value { border-top: 2px solid var(--ink); padding-top: 1rem; }
-.value h4 { font-size: var(--step-1); margin-bottom:.25rem; }
-.value p { color: var(--muted); font-size: var(--step--1); margin:0; }
+.value {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-s);
+  transition: border-color .3s var(--ease), transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.value h3 {
+  font-family: var(--font-display); font-size: var(--step-0); margin: 0 0 .4rem;
+  padding-top: .7rem; position: relative;
+}
+.value h3::before {
+  content:""; position:absolute; top:0; left:0;
+  width: 2.2rem; height: 3px; border-radius: 2px; background: var(--grad);
+}
+.value p { color: var(--muted); font-size: var(--step--1); line-height: 1.55; margin: 0; }
+@media (hover: hover){
+  .value:hover { border-color: var(--line-strong); transform: translateY(-3px); box-shadow: 0 18px 40px -28px rgba(10,31,51,.35); }
+}
 
 /* =======================================================
    CAPABILITIES BAND (dark punctuation — used sparingly)
