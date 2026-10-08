@@ -39,8 +39,8 @@ const breadcrumb = {
   ],
 };
 
-// Related services (the other three).
-const related = services.filter((s) => s.slug !== service.slug);
+// Related services (show up to three others).
+const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
 ---
 
 <BaseLayout
@@ -55,7 +55,7 @@ const related = services.filter((s) => s.slug !== service.slug);
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/services">Services</a><span>/</span>{service.shortName}</nav>
       <div class="hero__grid">
         <div>
-          <p class="overline" data-reveal>Service {service.num}</p>
+          <p class="overline" data-reveal>Our services</p>
           <h1 data-reveal data-delay="1">{service.shortName}</h1>
           <p class="lead" data-reveal data-delay="2">{service.summary}</p>
           <div class="hero__cta" data-reveal data-delay="3">
@@ -130,12 +130,11 @@ const related = services.filter((s) => s.slug !== service.slug);
       </div>
       <p class="lead" data-reveal data-delay="2">The same team handles the rest of your building services — so nothing falls through the gaps.</p>
     </div>
-    <div class="svc-cards">
+    <div class="svc-cards svc-cards--3">
       {related.map((s) => (
         <a class="svc-card" href={`/services/${s.slug}`} data-reveal>
           <div class="svc-card__media"><img src={s.image} alt={s.imageAlt} width="800" height="450" loading="lazy" /></div>
           <div class="svc-card__body">
-            <span class="num">{s.num}</span>
             <h3>{s.shortName}</h3>
             <p>{s.excerpt}</p>
             <span class="read">Explore {s.shortName} →</span>

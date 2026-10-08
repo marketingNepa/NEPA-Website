@@ -58,18 +58,20 @@ const fmt = (d: Date) =>
     <div class="sec-head">
       <div>
         <p class="overline" data-reveal>What we do</p>
-        <h2 data-reveal data-delay="1">Four disciplines.<br>One accountable team.</h2>
+        <h2 data-reveal data-delay="1">Various disciplines.<br>One accountable team.</h2>
       </div>
       <p class="lead" data-reveal data-delay="2">We combine technical depth across every building service, so coordination issues are solved on the drawing board — not on site.</p>
     </div>
 
-    <div class="disciplines">
+    <div class="svc-cards svc-cards--3">
       {services.map((s) => (
-        <a class="disc" href={`/services/${s.slug}`} data-reveal>
-          <div class="d-num">{s.num}</div>
-          <h3>{s.shortName}</h3>
-          <p class="d-desc">{s.excerpt}</p>
-          <span class="d-go" aria-hidden="true">↗</span>
+        <a class="svc-card" href={`/services/${s.slug}`} data-reveal>
+          <div class="svc-card__media"><img src={s.image} alt={s.imageAlt} width="800" height="450" loading="lazy" /></div>
+          <div class="svc-card__body">
+            <h3>{s.shortName}</h3>
+            <p>{s.excerpt}</p>
+            <span class="read">Explore {s.shortName} →</span>
+          </div>
         </a>
       ))}
     </div>
@@ -109,21 +111,26 @@ const fmt = (d: Date) =>
       <p class="overline light" data-reveal>Why multi-disciplinary</p>
       <h2 data-reveal data-delay="1" style="font-size:var(--step-4);max-width:18ch">Continuity from first sketch to final commissioning.</h2>
       <div class="grid">
-        <div class="cap" data-reveal><span class="k">01</span><h4>Coordinated by design</h4><p>One team across all services removes the clash risk of separate consultants.</p></div>
-        <div class="cap" data-reveal data-delay="1"><span class="k">02</span><h4>Buildable solutions</h4><p>Design decisions tested against real construction and cost from day one.</p></div>
-        <div class="cap" data-reveal data-delay="2"><span class="k">03</span><h4>Smoother commissioning</h4><p>Fewer surprises on site means faster, cleaner project handover.</p></div>
-        <div class="cap" data-reveal data-delay="3"><span class="k">04</span><h4>Better outcomes</h4><p>Efficiency and effectiveness maximised across the whole project.</p></div>
+        <div class="cap" data-reveal><span class="k" aria-hidden="true"></span><h4>Coordinated by design</h4><p>One team across all services removes the clash risk of separate consultants.</p></div>
+        <div class="cap" data-reveal data-delay="1"><span class="k" aria-hidden="true"></span><h4>Buildable solutions</h4><p>Design decisions tested against real construction and cost from day one.</p></div>
+        <div class="cap" data-reveal data-delay="2"><span class="k" aria-hidden="true"></span><h4>Smoother commissioning</h4><p>Fewer surprises on site means faster, cleaner project handover.</p></div>
+        <div class="cap" data-reveal data-delay="3"><span class="k" aria-hidden="true"></span><h4>Better outcomes</h4><p>Efficiency and effectiveness maximised across the whole project.</p></div>
       </div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
-  <section class="section wrap bg-paper-2" style="border-radius:0" id="testimonials">
+  <section class="section--tight wrap bg-paper-2" style="border-radius:0" id="testimonials">
     <div class="sec-head">
       <div>
         <p class="overline" data-reveal>Client voices</p>
-        <h2 data-reveal data-delay="1">Trusted on the projects<br>that matter.</h2>
+        <h2 data-reveal data-delay="1">Trusted on the projects that matter.</h2>
       </div>
+      {company.googleReviewsUrl && (
+        <p data-reveal data-delay="2">
+          <a class="btn ghost" href={company.googleReviewsUrl} target="_blank" rel="noopener"><span>Read our Google reviews</span><span class="arrow">↗</span></a>
+        </p>
+      )}
     </div>
     <div class="quotes">
       <figure class="quote" data-reveal>

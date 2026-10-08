@@ -29,17 +29,43 @@ export const company = {
     facebook: "https://www.facebook.com/p/Nepa-Engineering-61587420660306/",
     linkedin: "https://www.linkedin.com/company/110203113/",
   },
+  // TODO: replace with NEPA's Google Business review link to enable the
+  // "Read our Google reviews" button. Leave empty to hide the button.
+  googleReviewsUrl: "",
 } as const;
 
-export type NavItem = { label: string; href: string };
+export type NavChild = { label: string; href: string };
+export type NavItem = { label: string; href: string; children?: NavChild[] };
 
 export const primaryNav: NavItem[] = [
-  { label: "Services", href: "/services" },
-  { label: "CDC", href: "/services/cdc" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Insights", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  {
+    label: "Services",
+    href: "/services",
+    children: [
+      { label: "Fire Protection", href: "/services/fire-protection" },
+      { label: "Hydraulic Services", href: "/services/hydraulic" },
+      { label: "Mechanical Services", href: "/services/mechanical" },
+      { label: "Electrical Services", href: "/services/electrical" },
+      { label: "Project Management", href: "/services/project-management" },
+      { label: "Peer Review", href: "/services/peer-review" },
+      { label: "Complying Development (CDC)", href: "/services/cdc" },
+    ],
+  },
+  {
+    label: "Projects",
+    href: "/projects",
+    children: [
+      { label: "Residential", href: "/projects?category=residential" },
+      { label: "Commercial", href: "/projects?category=commercial" },
+      { label: "Industrial", href: "/projects?category=industrial" },
+      { label: "Boarding House", href: "/projects?category=boarding-house" },
+      { label: "All projects", href: "/projects" },
+    ],
+  },
+  { label: "News", href: "/blog" },
+  { label: "Careers", href: "/careers" },
 ];
 
 // Project categories (keep in sync with the enum in src/content/config.ts).
@@ -54,7 +80,6 @@ export type ArticleBlock = { h?: string; p?: string[] };
 
 export type Service = {
   slug: string;
-  num: string;
   name: string;
   shortName: string;
   image: string;
@@ -74,7 +99,6 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "fire-protection",
-    num: "01",
     name: "Fire Protection Services",
     shortName: "Fire Protection",
     image: "/assets/img/fire.jpg",
@@ -161,7 +185,6 @@ export const services: Service[] = [
   },
   {
     slug: "hydraulic",
-    num: "02",
     name: "Hydraulic Services",
     shortName: "Hydraulic Services",
     image: "/assets/img/hydraulic.jpg",
@@ -246,7 +269,6 @@ export const services: Service[] = [
   },
   {
     slug: "mechanical",
-    num: "03",
     name: "Mechanical Services",
     shortName: "Mechanical Services",
     image: "/assets/img/mechanical.jpg",
@@ -331,11 +353,10 @@ export const services: Service[] = [
   },
   {
     slug: "electrical",
-    num: "04",
     name: "Electrical Services",
     shortName: "Electrical Services",
     image: "/assets/img/electrical.jpg",
-    imageAlt: "Main switchboard with circuit breakers and distribution board wiring",
+    imageAlt: "Commercial main switchboard (MSB) in a large building",
     excerpt:
       "Building infrastructure and mains distribution, lighting and emergency lighting, communications, AV, security and controls.",
     summary:
@@ -413,6 +434,162 @@ export const services: Service[] = [
     seoTitle: "Electrical Engineering Sydney | NEPA Engineering",
     seoDescription:
       "Electrical design in Sydney & NSW: mains distribution, lighting, emergency lighting, communications, AV, security and controls for commercial buildings.",
+  },
+  {
+    slug: "project-management",
+    name: "Project Management",
+    shortName: "Project Management",
+    image: "/assets/img/about.jpg",
+    imageAlt: "Engineer reviewing building services documentation and program",
+    excerpt:
+      "Hands-on management of building-services delivery — program, cost, coordination and stakeholders — from brief through to commissioning and handover.",
+    summary:
+      "We manage the delivery of building-services engineering so your project stays on program, on budget and coordinated. From the initial brief through design, construction support and commissioning, a single point of accountability keeps every discipline moving in step.",
+    scope: [
+      {
+        title: "Delivery",
+        items: [
+          "Design program & milestones",
+          "Scope & deliverables management",
+          "Risk & issue tracking",
+          "Progress reporting",
+        ],
+      },
+      {
+        title: "Coordination",
+        items: [
+          "Multi-disciplinary coordination",
+          "Consultant & contractor liaison",
+          "Design reviews & workshops",
+          "Clash resolution",
+        ],
+      },
+      {
+        title: "Delivery assurance",
+        items: [
+          "Authority & certifier liaison",
+          "Commissioning support",
+          "Handover & documentation",
+          "Defects & close-out",
+        ],
+      },
+    ],
+    outcomes: [
+      {
+        title: "One point of accountability",
+        body: "A single team managing every service removes the gaps that appear between separate consultants.",
+      },
+      {
+        title: "On program",
+        body: "Early coordination and clear reporting keep approvals and construction moving without surprises.",
+      },
+    ],
+    article: [
+      {
+        p: [
+          "Great engineering only delivers value if it reaches site on time, on budget and fully coordinated. NEPA Engineering provides project management for building-services delivery across Sydney and NSW — taking ownership of program, cost, coordination and stakeholder communication so your project runs smoothly from brief to handover.",
+        ],
+      },
+      {
+        h: "Managing the whole services delivery",
+        p: [
+          "We plan the design program and milestones, manage scope and deliverables, and track risks and issues before they become problems. Clear, regular reporting means you always know where the project stands and what happens next.",
+        ],
+      },
+      {
+        h: "Coordination that prevents rework",
+        p: [
+          "Because NEPA designs fire, hydraulic, mechanical and electrical services in-house, our project management keeps every discipline moving in step — running design reviews, coordinating with other consultants and contractors, and resolving clashes on the drawing board rather than on site.",
+        ],
+      },
+      {
+        h: "Through to commissioning and handover",
+        p: [
+          "We liaise with authorities and certifiers, support commissioning, and manage documentation and close-out — so the building is handed over cleanly and the owner has what they need to operate it.",
+        ],
+      },
+    ],
+    seoTitle: "Project Management | Building Services | NEPA",
+    seoDescription:
+      "Project management for building-services delivery in Sydney & NSW — program, cost, coordination, commissioning and handover from one accountable team.",
+  },
+  {
+    slug: "peer-review",
+    name: "Peer Review",
+    shortName: "Peer Review",
+    image: "/assets/img/blueprint.jpg",
+    imageAlt: "Engineering drawings being peer reviewed for compliance and buildability",
+    excerpt:
+      "Independent review of building-services designs for compliance, buildability and value — a second set of expert eyes before you commit to construction.",
+    summary:
+      "An independent, expert review of building-services designs — fire, hydraulic, mechanical and electrical — checking compliance with the NCC and Australian Standards, buildability, coordination and value-for-money before a design goes to construction.",
+    scope: [
+      {
+        title: "Compliance review",
+        items: [
+          "NCC & Australian Standards check",
+          "Authority requirement review",
+          "Fire & life-safety verification",
+          "Documentation completeness",
+        ],
+      },
+      {
+        title: "Design review",
+        items: [
+          "Buildability assessment",
+          "Coordination & clash check",
+          "Capacity & sizing verification",
+          "Design assumptions review",
+        ],
+      },
+      {
+        title: "Value review",
+        items: [
+          "Value-for-money opportunities",
+          "Infrastructure optimisation",
+          "Energy & lifecycle review",
+          "Risk identification",
+        ],
+      },
+    ],
+    outcomes: [
+      {
+        title: "Confidence before you build",
+        body: "An independent check catches compliance gaps and coordination risks while they are still cheap to fix.",
+      },
+      {
+        title: "Better value",
+        body: "Experienced reviewers often find smarter, more buildable solutions that reduce cost and infrastructure.",
+      },
+    ],
+    article: [
+      {
+        p: [
+          "A second set of experienced eyes can save a project significant time, cost and risk. NEPA Engineering provides independent peer review of building-services designs across Sydney and NSW — assessing fire, hydraulic, mechanical and electrical designs for compliance, buildability, coordination and value before they go to construction.",
+        ],
+      },
+      {
+        h: "Checking compliance and completeness",
+        p: [
+          "We review designs against the National Construction Code and the relevant Australian Standards, confirm authority and certifier requirements are met, and check that documentation is complete and consistent — reducing the risk of delays or rework during approval and construction.",
+        ],
+      },
+      {
+        h: "Buildability, coordination and value",
+        p: [
+          "Beyond compliance, our reviewers assess whether a design is genuinely buildable, whether services are properly coordinated, and whether plant and infrastructure are sized sensibly. Drawing on our multi-disciplinary experience, we frequently identify smarter, more buildable solutions that reduce cost without compromising performance.",
+        ],
+      },
+      {
+        h: "Independent and practical",
+        p: [
+          "Our peer reviews are clear and practical — a prioritised list of findings and recommendations you can act on, giving owners, developers and certifiers confidence in the design before committing to construction.",
+        ],
+      },
+    ],
+    seoTitle: "Peer Review | Building Services Design | NEPA",
+    seoDescription:
+      "Independent peer review of building-services designs in Sydney & NSW — checking compliance, buildability, coordination and value before construction.",
   },
 ];
 

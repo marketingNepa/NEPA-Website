@@ -9,20 +9,10 @@ const { overlay = false } = Astro.props;
 
 // Normalise current path for active-state matching.
 const current = Astro.url.pathname.replace(/\/+$/, "") || "/";
-const navHrefs = primaryNav.map((n) => n.href.replace(/\/+$/, "") || "/");
 function isActive(href: string): boolean {
-  const h = href.replace(/\/+$/, "") || "/";
+  const h = href.split("?")[0].replace(/\/+$/, "") || "/";
   if (h === "/") return current === "/";
-  if (current === h) return true;
-  // Only mark a parent (e.g. /services) active for a descendant when no more
-  // specific nav item (e.g. /services/cdc) already matches that descendant.
-  if (current.startsWith(h + "/")) {
-    const moreSpecific = navHrefs.some(
-      (other) => other !== h && other.startsWith(h + "/") && (current === other || current.startsWith(other + "/"))
-    );
-    return !moreSpecific;
-  }
-  return false;
+  return current === h || current.startsWith(h + "/");
 }
 ---
 
@@ -34,19 +24,41 @@ function isActive(href: string): boolean {
     <img class="logo-dark" src="/assets/img/logo.png" alt={company.name} width="140" height="42" />
   </a>
   <nav class="nav" id="nav" aria-label="Primary">
-    {primaryNav.map((item) =>
-      item.label === "Contact" ? (
-        <a class="btn accent" href={item.href}><span>Get in touch</span></a>
-      ) : (
-        <a
-          class="nav-link"
-          href={item.href}
-          aria-current={isActive(item.href) ? "page" : undefined}
-        >
-          {item.label}
-        </a>
-      )
-    )}
+    <ul class="nav__list">
+      {primaryNav.map((item) =>
+        item.children ? (
+          <li class="nav__item nav__item--has-menu">
+            <a
+              class="nav-link"
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              aria-haspopup="true"
+            >
+              {item.label}
+              <span class="nav__caret" aria-hidden="true">▾</span>
+            </a>
+            <ul class="submenu" aria-label={`${item.label} menu`}>
+              {item.children.map((child) => (
+                <li>
+                  <a href={child.href}>{child.label}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : (
+          <li class="nav__item">
+            <a
+              class="nav-link"
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        )
+      )}
+    </ul>
+    <a class="btn accent nav__cta" href="/contact"><span>Get in touch</span></a>
   </nav>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>

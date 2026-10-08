@@ -41,12 +41,11 @@ const breadcrumb = {
   </section>
 
   <section class="section wrap">
-    <div class="svc-cards">
+    <div class="svc-cards svc-cards--3">
       {services.map((s) => (
         <a class="svc-card" href={`/services/${s.slug}`} data-reveal>
           <div class="svc-card__media"><img src={s.image} alt={s.imageAlt} width="800" height="450" loading="lazy" /></div>
           <div class="svc-card__body">
-            <span class="num">{s.num}</span>
             <h3>{s.shortName}</h3>
             <p>{s.excerpt}</p>
             <span class="read">Explore {s.shortName} →</span>
@@ -56,7 +55,6 @@ const breadcrumb = {
       <a class="svc-card" href="/services/cdc" data-reveal>
         <div class="svc-card__media"><img src="/assets/img/cta-building.jpg" alt="Complying Development Certificate projects" width="800" height="450" loading="lazy" /></div>
         <div class="svc-card__body">
-          <span class="num">+</span>
           <h3>Complying Development (CDC)</h3>
           <p>Fast-track approval support — coordinated building-services documentation to help your project qualify for a Complying Development Certificate.</p>
           <span class="read">Explore CDC →</span>

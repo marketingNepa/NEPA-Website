@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactSection from "../components/ContactSection.astro";
+import { company } from "../data/site";
+
+const title = "Careers | NEPA Engineering, Building Services Sydney";
+const description =
+  "Join NEPA Engineering — a multi-disciplinary building-services consultancy in Sydney. Explore careers in fire, hydraulic, mechanical and electrical engineering.";
+const path = "/careers";
+
+const values = [
+  { h: "Teamwork", p: "Collaboration across every discipline — you'll work alongside engineers who share what they know." },
+  { h: "Growth", p: "Real responsibility early, exposure to all four disciplines, and support to develop your expertise." },
+  { h: "Impact", p: "Your work shapes buildings across NSW, from concept through to commissioning." },
+];
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://www.nepaeng.com/" },
+    { "@type": "ListItem", position: 2, name: "Careers", item: "https://www.nepaeng.com/careers" },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} path={path} jsonLd={[breadcrumb]}>
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span>Careers</nav>
+      <div class="hero__grid">
+        <div>
+          <p class="overline" data-reveal>Careers</p>
+          <h1 data-reveal data-delay="1">Build your career <span class="em">with NEPA.</span></h1>
+          <p class="lead" data-reveal data-delay="2">We're a multi-disciplinary building-services consultancy in Sydney. If you want genuine responsibility, exposure across fire, hydraulic, mechanical and electrical engineering, and a team that values your ideas — we'd like to hear from you.</p>
+          <div class="hero__cta" data-reveal data-delay="3">
+            <a class="btn accent" href={`mailto:${company.email}?subject=Careers%20enquiry`}><span>Send your CV</span><span class="arrow">↗</span></a>
+          </div>
+        </div>
+        <aside class="spec-rail" data-reveal data-delay="2" aria-label="Working at NEPA">
+          <div class="srow"><span class="k">Based</span><span class="v">Hurstville</span></div>
+          <div class="srow"><span class="k">Disciplines</span><span class="v">4</span></div>
+          <div class="srow"><span class="k">Since</span><span class="v">2018</span></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap bg-white">
+    <div class="sec-head">
+      <div>
+        <p class="overline" data-reveal>Why NEPA</p>
+        <h2 data-reveal data-delay="1">A place to do your best work.</h2>
+      </div>
+      <p class="lead" data-reveal data-delay="2">We hire for attitude and aptitude, and invest in people who want to grow across the full breadth of building services.</p>
+    </div>
+    <div class="outcomes" style="grid-template-columns:repeat(3,1fr)">
+      {values.map((v) => (
+        <div class="outcome" data-reveal>
+          <h4>{v.h}</h4>
+          <p>{v.p}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section wrap">
+    <div class="article">
+      <p class="overline" data-reveal>Open roles</p>
+      <h2 data-reveal data-delay="1" style="font-size:var(--step-3)">Current opportunities</h2>
+      <p class="lead" data-reveal data-delay="1">We don't have formal vacancies listed right now — but we're always interested in talented fire, hydraulic, mechanical and electrical engineers and graduates. If that's you, introduce yourself.</p>
+      <p data-reveal data-delay="2" style="margin-top:var(--space-s)">
+        Email your CV and a short note to <a href={`mailto:${company.email}?subject=Careers%20enquiry`} style="color:var(--blue)">{company.email}</a> and we'll be in touch.
+      </p>
+    </div>
+  </section>
+
+  <ContactSection heading="Want to work<br>with us?" />
+</BaseLayout>

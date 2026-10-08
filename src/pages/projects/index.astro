@@ -106,11 +106,22 @@ const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
     if (empty) empty.hidden = visible !== 0;
   }
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      buttons.forEach((b) => b.setAttribute("aria-pressed", "false"));
-      btn.setAttribute("aria-pressed", "true");
-      applyFilter(btn.dataset.filter || "all");
+  function selectFilter(filter: string) {
+    let matched = false;
+    buttons.forEach((b) => {
+      const on = (b.dataset.filter || "all") === filter;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      if (on) matched = true;
     });
+    applyFilter(matched ? filter : "all");
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => selectFilter(btn.dataset.filter || "all"));
   });
+
+  // Honour ?category=... from the nav dropdown links.
+  const params = new URLSearchParams(window.location.search);
+  const initial = params.get("category");
+  if (initial) selectFilter(initial);
 </script>
